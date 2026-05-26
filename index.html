@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NLF Contribution Form</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; text-align: center; }
+    .form-container { background: white; padding: 20px; border-radius: 8px; max-width: 400px; margin: auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h2 { margin: 5px 0; color: #003366; font-size: 22px; }
+    h3 { margin: 5px 0; color: #555; }
+    h4 { margin: 5px 0; color: #777; }
+    input, select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+    button { width: 100%; padding: 10px; background: #28a745; color: white; border: none; cursor: pointer; font-size: 16px; border-radius: 4px; }
+    button:disabled { background: #94d3a2; }
+    #qr-section { display: none; margin: 10px 0; background: #fafafa; padding: 10px; border: 1px dashed #ccc; }
+    #qr-section img { width: 200px; height: auto; }
+    .footer { font-size: 13px; margin-top: 20px; color: #333; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h3>Lions International</h3>
+  <h4>District 325 F</h4>
+  <h2>Nepal Lions Foundation (NLF)</h2>
+  <hr>
+
+  <form id="donationForm">
+    <input type="text" id="name" placeholder="Name*" required>
+    
+    <select id="clubList" required>
+      <option value="">Select Club Name*</option>
+      </select>
+
+    <input type="tel" id="contact" placeholder="Contact Number*" pattern="[0-9]*" inputmode="numeric" required>
+    <input type="text" id="amount" placeholder="Donation Amount*" required>
+
+    <select id="paymentType" onchange="toggleQR(this.value)" required>
+      <option value="">Select Payment Type*</option>
+      <option value="Cash">Cash</option>
+      <option value="Cheque">Cheque</option>
+      <option value="QR">QR</option>
+    </select>
+
+    <div id="qr-section">
+      <p style="margin:0 0 5px 0; font-size:14px; color:#555;">Scan to Pay:</p>
+      <img src="NLF-QR.jpg" alt="QR Code">
+    </div>
+
+    <button type="submit" id="submitBtn">Submit & Send Message</button>
+  </form>
+
+  <div class="footer">Design by: Nirajan Aryal (9851113811)</div>
+</div>
+
+<script>
+  // ⚠️ यहाँ गुगल एप स्क्रिप्टको Web App URL पेस्ट गर्नुहोस्
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2smDxtGmgD5WvHIZS4ohE2uMtXvblkfl0FNptzDHkWQjPfnFjkBT_T0jttpnjfQv-/exec";
+
+  // पेज लोड हुँदा गुगल सिटबाट क्लबको लिस्ट तान्ने
+  window.onload = function() {
+    fetch(WEB_APP_URL)
+      .then(response => response.json())
+      .then(clubs => {
+        const select = document.getElementById("clubList");
+        clubs.forEach(name => {
+          if(name) { // खाली रो छ भने नदेखाउने
+            let opt = document.createElement("option");
+            opt.value = name;
+            opt.innerHTML = name;
+            select.appendChild(opt);
+          }
+        });
+      })
+      .catch(err => console.error("Error fetching clubs:", err));
+  };
+
+  // QR कोड देखाउने/लुकाउने फङ्सन
+  function toggleQR(val) {
+    document.getElementById("qr-section").style.display = (val === "QR") ? "block" : "none";
+  }
+
+  // फर्म सबमिट गर्दा गुगल सिटमा डाटा पठाउने
+  document.getElementById("donationForm").onsubmit = function(e) {
+    e.preventDefault();
+    const btn = document.getElementById("submitBtn");
+    btn.disabled = true;
+    btn.innerText = "Processing...";
+    
+    const formData = {
+      name: document.getElementById("name").value,
+      club: document.getElementById("clubList").value,
+      contact: document.getElementById("contact").value,
+      amount: document.getElementById("amount").value,
+      payment: document.getElementById("paymentType").value
+    };
+
+    fetch(WEB_APP_URL, {
+      method: "POST",
+      body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(res => {
+      if(res.status === "success") {
+        // ह्वाट्सएप लिंक नयाँ ट्याबमा खोल्ने
+        window.open(res.whatsappUrl, '_blank');
+        document.getElementById("donationForm").reset();
+        toggleQR("");
+        alert("विवरण सफलतापूर्वक सुरक्षित गरियो !");
+      }
+    })
+    .catch(err => {
+      alert("केही गल्ती भयो, कृपया फेरि प्रयास गर्नुहोला।");
+      console.error(err);
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.innerText = "Submit & Send Message";
+    });
+  };
+</script>
+
+</body>
+</html>
