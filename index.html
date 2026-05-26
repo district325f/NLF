@@ -10,138 +10,24 @@
       --accent-color: #d4af37;  /* Premium Gold */
       --bg-color: #f0f4f8;
     }
-    
-    body { 
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-      padding: 30px 15px; 
-      background: var(--bg-color); 
-      color: #333;
-      margin: 0;
-    }
-    
-    .form-container { 
-      background: #ffffff; 
-      padding: 35px 30px; 
-      border-radius: 16px; 
-      max-width: 420px; 
-      margin: auto; 
-      box-shadow: 0 10px 30px rgba(0, 45, 98, 0.12); 
-      border-top: 5px solid var(--accent-color);
-    }
-    
-    /* सबै हेडिङहरू सेन्टरमा पार्ने */
-    .header-section {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-    
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px 15px; background: var(--bg-color); color: #333; margin: 0; }
+    .form-container { background: #ffffff; padding: 35px 30px; border-radius: 16px; max-width: 420px; margin: auto; box-shadow: 0 10px 30px rgba(0, 45, 98, 0.12); border-top: 5px solid var(--accent-color); }
+    .header-section { text-align: center; margin-bottom: 25px; }
     .header-section h3 { margin: 0; color: var(--primary-color); font-size: 16px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
     .header-section h4 { margin: 5px 0 10px 0; color: #666; font-size: 14px; font-weight: 400; }
     .header-section h2 { margin: 0; color: var(--primary-color); font-size: 22px; font-weight: 700; line-height: 1.3; }
     .header-section .sub-title { color: var(--primary-color); font-size: 20px; font-weight: 700; margin-top: 2px; }
-    
-    hr {
-      border: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, #ccc, transparent);
-      margin: 20px 0;
-    }
-    
-    .input-group {
-      text-align: left;
-      margin-bottom: 18px;
-    }
-    
-    .input-group label {
-      display: block;
-      font-size: 13px;
-      color: var(--primary-color);
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-    
-    input, select { 
-      width: 100%; 
-      padding: 12px 14px; 
-      border: 1px solid #ced4da; 
-      border-radius: 8px; 
-      box-sizing: border-box; 
-      font-size: 15px;
-      background-color: #f9fbfd;
-      transition: all 0.3s ease;
-    }
-    
-    input:focus, select:focus {
-      outline: none;
-      border-color: var(--primary-color);
-      background-color: #fff;
-      box-shadow: 0 0 0 3px rgba(0, 45, 98, 0.1);
-    }
-    
-    button { 
-      width: 100%; 
-      padding: 14px; 
-      background: var(--primary-color); 
-      color: white; 
-      border: none; 
-      cursor: pointer; 
-      font-size: 16px; 
-      font-weight: 600;
-      border-radius: 8px; 
-      margin-top: 10px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0, 45, 98, 0.2);
-    }
-    
-    button:hover {
-      background: #001f44;
-      transform: translateY(-1px);
-    }
-    
-    button:disabled { 
-      background: #a0b2c6; 
-      cursor: not-allowed;
-      transform: none;
-    }
-    
-    /* QR कोड सेक्सन सेन्टरमा पार्ने */
-    #qr-section { 
-      display: none; 
-      margin: 15px 0; 
-      background: #fffdf3; 
-      padding: 15px; 
-      border: 2px dashed var(--accent-color); 
-      border-radius: 10px;
-      text-align: center;
-      animation: fadeIn 0.4s ease;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    #qr-section img { 
-      width: 220px; 
-      height: auto; 
-      border-radius: 6px;
-      margin: 8px auto 0 auto;
-      display: block;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
-    
-    /* फुटर बटन र टेक्स्ट सेन्टरमा पार्ने */
-    .footer { 
-      font-size: 13px; 
-      margin-top: 25px; 
-      color: #555; 
-      background: #f8f9fa;
-      padding: 11px;
-      border-radius: 6px;
-      border-top: 3px solid var(--accent-color);
-      font-weight: bold;
-      text-align: center;
-    }
+    hr { border: 0; height: 1px; background: linear-gradient(to right, transparent, #ccc, transparent); margin: 20px 0; }
+    .input-group { text-align: left; margin-bottom: 18px; }
+    .input-group label { display: block; font-size: 13px; color: var(--primary-color); font-weight: 600; margin-bottom: 6px; }
+    input, select { width: 100%; padding: 12px 14px; border: 1px solid #ced4da; border-radius: 8px; box-sizing: border-box; font-size: 15px; background-color: #f9fbfd; transition: all 0.3s ease; }
+    input:focus, select:focus { outline: none; border-color: var(--primary-color); background-color: #fff; box-shadow: 0 0 0 3px rgba(0, 45, 98, 0.1); }
+    button { width: 100%; padding: 14px; background: var(--primary-color); color: white; border: none; cursor: pointer; font-size: 16px; font-weight: 600; border-radius: 8px; margin-top: 10px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0, 45, 98, 0.2); }
+    button:hover { background: #001f44; transform: translateY(-1px); }
+    button:disabled { background: #a0b2c6; cursor: not-allowed; transform: none; }
+    #qr-section { display: none; margin: 15px 0; background: #fffdf3; padding: 15px; border: 2px dashed var(--accent-color); border-radius: 10px; text-align: center; }
+    #qr-section img { width: 220px; height: auto; border-radius: 6px; margin: 8px auto 0 auto; display: block; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    .footer { font-size: 13px; margin-top: 25px; color: #555; background: #f8f9fa; padding: 11px; border-radius: 6px; border-top: 3px solid var(--accent-color); font-weight: bold; text-align: center; }
   </style>
 </head>
 <body>
@@ -164,7 +50,7 @@
     <div class="input-group">
       <label for="clubList">Club Name *</label>
       <select id="clubList" required>
-        <option value="">-- Select Club Name --</option>
+        <option value="">-- Loading Clubs... --</option>
       </select>
     </div>
 
@@ -202,13 +88,13 @@
 <script>
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2smDxtGmgD5WvHIZS4ohE2uMtXvblkfl0FNptzDHkWQjPfnFjkBT_T0jttpnjfQv/exec";
 
-  // क्लब लिस्ट लोड नहुने समस्या यहाँ फिक्स गरिएको छ (redirect मोड थपेर)
+  // पेज लोड हुँदा क्लब लिस्ट तान्ने फङ्सन (CORS र Redirect मिलाइएको)
   window.onload = function() {
-    fetch(WEB_APP_URL, { redirect: "follow" })
+    fetch(WEB_APP_URL, { method: "GET" })
       .then(response => response.json())
       .then(clubs => {
         const select = document.getElementById("clubList");
-        select.innerHTML = '<option value="">-- Select Club Name --</option>'; // क्लियर गर्ने
+        select.innerHTML = '<option value="">-- Select Club Name --</option>';
         clubs.forEach(name => {
           if(name && name.toString().trim() !== "") { 
             let opt = document.createElement("option");
@@ -218,7 +104,10 @@
           }
         });
       })
-      .catch(err => console.error("Error fetching clubs:", err));
+      .catch(err => {
+        console.error("Error fetching clubs:", err);
+        document.getElementById("clubList").innerHTML = '<option value="">-- Error loading clubs --</option>';
+      });
   };
 
   function toggleQR(val) {
@@ -239,39 +128,37 @@
       payment: document.getElementById("paymentType").value
     };
 
-    // ह्वाट्सएप विन्डो ब्लक नहोस् भन्नका लागि पहिल्यै खाली विन्डो खोल्ने
-    const whatsappWindow = window.open("", "_blank");
-
     fetch(WEB_APP_URL, {
       method: "POST",
-      mode: "no-cors", 
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "text/plain" // एप स्क्रिप्टसँग बिना एरर कुरा गर्न यो आवश्यक छ
       },
       body: JSON.stringify(formData)
     })
-    .then(() => {
-      // ह्वाट्सएप म्यासेज ढाँचा
-      var message = `नमस्ते लायन भुवन नेपाल ज्यू,%0A%0ANepal Lions Foundation (NLF) को लागि मेरो Donation विवरण यस प्रकार छ:%0A%0A` +
-                    `नाम: ${encodeURIComponent(formData.name)}%0A` +
-                    `क्लबको नाम: ${encodeURIComponent(formData.club)}%0A` +
-                    `सम्पर्क नम्बर: ${encodeURIComponent(formData.contact)}%0A` +
-                    `रकम: ${encodeURIComponent(formData.amount)}%0A` +
-                    `भुक्तानीको प्रकार: ${encodeURIComponent(formData.payment)}%0A%0A` +
-                    `मैले भुक्तानी भौचरको फोटो यसै साथ संलग्न गरेको छु ।%0A%0A` +
-                    `Design by: Nirajan Aryal (9851113811)`;
-      
-      var whatsappUrl = "https://api.whatsapp.com/send?phone=9779851003853&text=" + message;
-      
-      whatsappWindow.location.href = whatsappUrl;
-      
-      document.getElementById("donationForm").reset();
-      toggleQR("");
-      alert("विवरण सफलतापूर्वक सुरक्षित गरियो र व्हाट्सएप खुल्दैछ !");
+    .then(response => response.json())
+    .then(res => {
+      if(res.status === "success") {
+        var message = `नमस्ते लायन भुवन नेपाल ज्यू,%0A%0ANepal Lions Foundation (NLF) को लागि मेरो Donation विवरण यस प्रकार छ:%0A%0A` +
+                      `नाम: ${encodeURIComponent(formData.name)}%0A` +
+                      `क्लबको नाम: ${encodeURIComponent(formData.club)}%0A` +
+                      `सम्पर्क नम्बर: ${encodeURIComponent(formData.contact)}%0A` +
+                      `रकम: ${encodeURIComponent(formData.amount)}%0A` +
+                      `भुक्तानीको प्रकार: ${encodeURIComponent(formData.payment)}%0A%0A` +
+                      `मैले भुक्तानी भौचरको फोटो यसै साथ संलग्न गरेको छु ।%0A%0A` +
+                      `Design by: Nirajan Aryal (9851113811)`;
+        
+        var whatsappUrl = "https://api.whatsapp.com/send?phone=9779851003853&text=" + message;
+        
+        window.open(whatsappUrl, '_blank');
+        document.getElementById("donationForm").reset();
+        toggleQR("");
+        alert("विवरण सफलतापूर्वक सुरक्षित गरियो र व्हाट्सएप खुल्दैछ !");
+      } else {
+        alert("गुगल सिटमा समस्या आयो: " + res.message);
+      }
     })
     .catch(err => {
-      if(whatsappWindow) whatsappWindow.close();
-      alert("केही प्राविधिक समस्या आयो, कृपया पुन: प्रयास गर्नुहोस्।");
+      alert("जडानमा समस्या आयो, कृपया पुन: प्रयास गर्नुहोस्।");
       console.error(err);
     })
     .finally(() => {
