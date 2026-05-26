@@ -87,10 +87,9 @@
 
 <script>
   // ⚠️ आफ्नो नयाँ Web App URL यहाँ राख्नुहोस्
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2smDxtGmgD5WvHIZS4ohE2uMtXvblkfl0FNptzDHkWQjPfnFjkBT_T0jttpnjfQv-/exec";
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2smDxtGmgD5WvHIZS4ohE2uMtXvblkfl0FNptzDHkWQjPfnFjkBT_T0jttpnjfQv/exec";
 
   window.onload = function() {
-    // बिना कुनै रोकतोक सिधै डाटाहरू तान्ने सुरक्षित विधी
     fetch(WEB_APP_URL)
       .then(response => response.json())
       .then(clubs => {
@@ -137,14 +136,14 @@
     })
     .then(response => response.json())
     .then(res => {
+      // शुद्ध विवरण मात्र म्यासेजमा पठाइएको छ
       var message = `नमस्ते लायन भुवन नेपाल ज्यू,%0A%0ANepal Lions Foundation (NLF) को लागि मेरो Donation विवरण यस प्रकार छ:%0A%0A` +
                     `नाम: ${encodeURIComponent(formData.name)}%0A` +
                     `क्लबको नाम: ${encodeURIComponent(formData.club)}%0A` +
                     `सम्पर्क नम्बर: ${encodeURIComponent(formData.contact)}%0A` +
                     `रकम: ${encodeURIComponent(formData.amount)}%0A` +
                     `भुक्तानीको प्रकार: ${encodeURIComponent(formData.payment)}%0A%0A` +
-                    `मैले भुक्तानी भौचरको फोटो यसै साथ संलग्न गरेको छु ।%0A%0A` +
-                    `Design by: Nirajan Aryal (9851113811)`;
+                    `मैले भुक्तानी भौचरको फोटो यसै साथ संलग्न गरेको छु ।`;
       
       var whatsappUrl = "https://api.whatsapp.com/send?phone=9779851003853&text=" + message;
       
