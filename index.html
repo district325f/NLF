@@ -6,8 +6,8 @@
   <title>NLF Contribution Form</title>
   <style>
     :root {
-      --primary-color: #002d62; /* Lions Navy Blue */
-      --accent-color: #d4af37;  /* Premium Gold */
+      --primary-color: #002d62; 
+      --accent-color: #d4af37;  
       --bg-color: #f0f4f8;
     }
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px 15px; background: var(--bg-color); color: #333; margin: 0; }
@@ -86,26 +86,29 @@
 </div>
 
 <script>
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2smDxtGmgD5WvHIZS4ohE2uMtXvblkfl0FNptzDHkWQjPfnFjkBT_T0jttpnjfQv/exec";
+  // ⚠️ आफ्नो नयाँ Web App URL यहाँ राख्नुहोस्
+  const WEB_APP_URL = "यहाँ_तपाईँको_नयाँ_WEB_APP_URL_पेस्ट_गर्नुहोस्";
 
-  // पेज लोड हुँदा क्लब लिस्ट तान्ने फङ्सन (CORS र Redirect मिलाइएको)
   window.onload = function() {
-    fetch(WEB_APP_URL, { method: "GET" })
+    // बिना कुनै रोकतोक सिधै डाटाहरू तान्ने सुरक्षित विधी
+    fetch(WEB_APP_URL)
       .then(response => response.json())
       .then(clubs => {
         const select = document.getElementById("clubList");
         select.innerHTML = '<option value="">-- Select Club Name --</option>';
+        if(clubs.length === 0) {
+          select.innerHTML = '<option value="">No clubs found in sheet</option>';
+          return;
+        }
         clubs.forEach(name => {
-          if(name && name.toString().trim() !== "") { 
-            let opt = document.createElement("option");
-            opt.value = name;
-            opt.innerHTML = name;
-            select.appendChild(opt);
-          }
+          let opt = document.createElement("option");
+          opt.value = name;
+          opt.innerHTML = name;
+          select.appendChild(opt);
         });
       })
       .catch(err => {
-        console.error("Error fetching clubs:", err);
+        console.error("Error:", err);
         document.getElementById("clubList").innerHTML = '<option value="">-- Error loading clubs --</option>';
       });
   };
@@ -130,32 +133,25 @@
 
     fetch(WEB_APP_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "text/plain" // एप स्क्रिप्टसँग बिना एरर कुरा गर्न यो आवश्यक छ
-      },
       body: JSON.stringify(formData)
     })
     .then(response => response.json())
     .then(res => {
-      if(res.status === "success") {
-        var message = `नमस्ते लायन भुवन नेपाल ज्यू,%0A%0ANepal Lions Foundation (NLF) को लागि मेरो Donation विवरण यस प्रकार छ:%0A%0A` +
-                      `नाम: ${encodeURIComponent(formData.name)}%0A` +
-                      `क्लबको नाम: ${encodeURIComponent(formData.club)}%0A` +
-                      `सम्पर्क नम्बर: ${encodeURIComponent(formData.contact)}%0A` +
-                      `रकम: ${encodeURIComponent(formData.amount)}%0A` +
-                      `भुक्तानीको प्रकार: ${encodeURIComponent(formData.payment)}%0A%0A` +
-                      `मैले भुक्तानी भौचरको फोटो यसै साथ संलग्न गरेको छु ।%0A%0A` +
-                      `Design by: Nirajan Aryal (9851113811)`;
-        
-        var whatsappUrl = "https://api.whatsapp.com/send?phone=9779851003853&text=" + message;
-        
-        window.open(whatsappUrl, '_blank');
-        document.getElementById("donationForm").reset();
-        toggleQR("");
-        alert("विवरण सफलतापूर्वक सुरक्षित गरियो र व्हाट्सएप खुल्दैछ !");
-      } else {
-        alert("गुगल सिटमा समस्या आयो: " + res.message);
-      }
+      var message = `नमस्ते लायन भुवन नेपाल ज्यू,%0A%0ANepal Lions Foundation (NLF) को लागि मेरो Donation विवरण यस प्रकार छ:%0A%0A` +
+                    `नाम: ${encodeURIComponent(formData.name)}%0A` +
+                    `क्लबको नाम: ${encodeURIComponent(formData.club)}%0A` +
+                    `सम्पर्क नम्बर: ${encodeURIComponent(formData.contact)}%0A` +
+                    `रकम: ${encodeURIComponent(formData.amount)}%0A` +
+                    `भुक्तानीको प्रकार: ${encodeURIComponent(formData.payment)}%0A%0A` +
+                    `मैले भुक्तानी भौचरको फोटो यसै साथ संलग्न गरेको छु ।%0A%0A` +
+                    `Design by: Nirajan Aryal (9851113811)`;
+      
+      var whatsappUrl = "https://api.whatsapp.com/send?phone=9779851003853&text=" + message;
+      
+      window.open(whatsappUrl, '_blank');
+      document.getElementById("donationForm").reset();
+      toggleQR("");
+      alert("विवरण सफलतापूर्वक सुरक्षित गरियो र व्हाट्सएप खुल्दैछ !");
     })
     .catch(err => {
       alert("जडानमा समस्या आयो, कृपया पुन: प्रयास गर्नुहोस्।");
