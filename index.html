@@ -6,39 +6,41 @@
   <title>NLF Contribution Form</title>
   <style>
     :root {
-      --primary-color: #002d62; /* Lions Navy Blue */
-      --accent-color: #d4af37;  /* Premium Gold */
+      --primary-color: #002d62;
+      --accent-color: #d4af37;
       --bg-color: #f0f4f8;
     }
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px 15px; background: var(--bg-color); color: #333; margin: 0; }
     .form-container { background: #ffffff; padding: 35px 30px; border-radius: 16px; max-width: 420px; margin: auto; box-shadow: 0 10px 30px rgba(0, 45, 98, 0.12); border-top: 5px solid var(--accent-color); }
-    
-    /* सबै हेडिङहरू सेन्टरमा */
     .header-section { text-align: center; margin-bottom: 25px; }
     .header-section h3 { margin: 0; color: var(--primary-color); font-size: 16px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
     .header-section h4 { margin: 5px 0 10px 0; color: #666; font-size: 14px; font-weight: 400; }
     .header-section h2 { margin: 0; color: var(--primary-color); font-size: 22px; font-weight: 700; line-height: 1.3; }
     .header-section .sub-title { color: var(--primary-color); font-size: 20px; font-weight: 700; margin-top: 2px; }
-    
     hr { border: 0; height: 1px; background: linear-gradient(to right, transparent, #ccc, transparent); margin: 20px 0; }
     .input-group { text-align: left; margin-bottom: 18px; }
     .input-group label { display: block; font-size: 13px; color: var(--primary-color); font-weight: 600; margin-bottom: 6px; }
     input, select { width: 100%; padding: 12px 14px; border: 1px solid #ced4da; border-radius: 8px; box-sizing: border-box; font-size: 15px; background-color: #f9fbfd; transition: all 0.3s ease; }
     input:focus, select:focus { outline: none; border-color: var(--primary-color); background-color: #fff; box-shadow: 0 0 0 3px rgba(0, 45, 98, 0.1); }
+    input[readonly], select:disabled { background: #eef2f6; color: #495057; cursor: not-allowed; }
     button { width: 100%; padding: 14px; background: var(--primary-color); color: white; border: none; cursor: pointer; font-size: 16px; font-weight: 600; border-radius: 8px; margin-top: 10px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0, 45, 98, 0.2); }
     button:hover { background: #001f44; transform: translateY(-1px); }
     button:disabled { background: #a0b2c6; cursor: not-allowed; transform: none; }
-    
-    /* QR कोड सेक्सन सेन्टरमा */
     #qr-section { display: none; margin: 15px 0; background: #fffdf3; padding: 15px; border: 2px dashed var(--accent-color); border-radius: 10px; text-align: center; }
     #qr-section img { width: 220px; height: auto; border-radius: 6px; margin: 8px auto 0 auto; display: block; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-    
-    /* फुटार पनि बुटवल जस्तै सेन्टरमा */
+    .member-status { display:none; margin-top:7px; font-size:12px; font-weight:600; }
+    .member-status.ok { display:block; color:#1f7a3f; }
+    .member-status.error { display:block; color:#b42318; }
+    .table-section { margin-top: 24px; overflow-x: auto; }
+    .table-section h3 { text-align:center; color:var(--primary-color); font-size:16px; margin:0 0 10px; }
+    .contribution-table { width:100%; border-collapse:collapse; font-size:12px; min-width:620px; }
+    .contribution-table th, .contribution-table td { border:1px solid #d9e0e7; padding:8px; text-align:left; }
+    .contribution-table th { background:#f3f6f9; color:var(--primary-color); }
+    .table-message { text-align:center; color:#777; padding:12px; font-size:12px; }
     .footer { font-size: 13px; margin-top: 25px; color: #555; background: #f8f9fa; padding: 11px; border-radius: 6px; border-top: 3px solid var(--accent-color); font-weight: bold; text-align: center; }
   </style>
 </head>
 <body>
-
 <div class="form-container">
   <div class="header-section">
     <h3>Lions International</h3>
@@ -50,27 +52,29 @@
 
   <form id="donationForm">
     <div class="input-group">
-      <label for="name">Full Name *</label>
-      <input type="text" id="name" placeholder="Enter full name" required>
+      <label for="membership">Membership Number *</label>
+      <input type="text" id="membership" placeholder="Enter membership number" inputmode="numeric" required autocomplete="off">
+      <div id="memberStatus" class="member-status"></div>
     </div>
-    
+
+    <div class="input-group">
+      <label for="name">Full Name *</label>
+      <input type="text" id="name" placeholder="Auto fill from membership number" required readonly>
+    </div>
     <div class="input-group">
       <label for="clubList">Club Name *</label>
-      <select id="clubList" required>
-        <option value="">-- Loading Clubs... --</option>
+      <select id="clubList" required disabled>
+        <option value="">-- Auto Fill Club Name --</option>
       </select>
     </div>
-
     <div class="input-group">
       <label for="contact">Contact Number *</label>
-      <input type="tel" id="contact" placeholder="98XXXXXXXX" pattern="[0-9]*" inputmode="numeric" required>
+      <input type="tel" id="contact" placeholder="Auto fill from membership number" required readonly>
     </div>
-
     <div class="input-group">
       <label for="amount">Donation Amount (Rs.) *</label>
       <input type="text" id="amount" placeholder="Enter donation amount" required>
     </div>
-
     <div class="input-group">
       <label for="paymentType">Payment Type *</label>
       <select id="paymentType" onchange="toggleQR(this.value)" required>
@@ -80,98 +84,182 @@
         <option value="QR">QR</option>
       </select>
     </div>
-
     <div id="qr-section">
       <p style="margin:0; font-size:14px; color:#666; font-weight: 600;">Scan QR Code to Make Payment:</p>
       <img src="NLF-QR.jpg" alt="QR Code" onerror="this.src='https://placehold.co/220?text=NLF+QR+Photo'">
     </div>
-
     <button type="submit" id="submitBtn">Submit & Send Message</button>
   </form>
 
+  <div class="table-section">
+    <h3>Contribution Details</h3>
+    <div id="tableWrap" class="table-message">Loading contribution data...</div>
+  </div>
+
   <div class="footer">Design by: Nirajan Aryal (9851113811)</div>
 </div>
-
 <script>
-  // तपाईँको आफ्नै गुगल एप्स स्क्रिप्टको लिङ्क यहाँ सेट गरिएको छ
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2smDxtGmgD5WvHIZS4ohE2uMtXvblkfl0FNptzDHkWQjPfnFjkBT_T0jttpnjfQv-/exec";
+  let memberVerified = false;
+  let lookupTimer = null;
 
-  // पेज लोड हुँदा सिटबाट क्लबको लिस्ट तान्ने
   window.onload = function() {
+    loadClubs();
+    loadContributions();
+  };
+
+  function loadClubs() {
     fetch(WEB_APP_URL)
       .then(response => response.json())
       .then(clubs => {
         const select = document.getElementById("clubList");
-        select.innerHTML = '<option value="">-- Select Club Name --</option>';
-        if(clubs.length === 0) {
-          select.innerHTML = '<option value="">No clubs found in sheet</option>';
-          return;
-        }
+        select.innerHTML = '<option value="">-- Auto Fill Club Name --</option>';
         clubs.forEach(name => {
           let opt = document.createElement("option");
           opt.value = name;
-          opt.innerHTML = name;
+          opt.textContent = name;
           select.appendChild(opt);
         });
       })
+      .catch(err => console.error("Club loading error:", err));
+  }
+
+  document.getElementById("membership").addEventListener("input", function() {
+    clearTimeout(lookupTimer);
+    clearMember();
+    const membership = this.value.trim();
+    if (!membership) return;
+    setMemberStatus("Searching member...", "");
+    lookupTimer = setTimeout(() => lookupMember(membership), 450);
+  });
+
+  function lookupMember(membership) {
+    fetch(WEB_APP_URL + "?action=member&membership=" + encodeURIComponent(membership))
+      .then(response => response.json())
+      .then(res => {
+        if (!res || !res.found) {
+          clearMember();
+          setMemberStatus("Membership Number not found", "error");
+          return;
+        }
+        document.getElementById("name").value = res.name || "";
+        document.getElementById("contact").value = res.contact || "";
+        const clubSelect = document.getElementById("clubList");
+        if (res.club && !Array.from(clubSelect.options).some(o => o.value === res.club)) {
+          const opt = document.createElement("option");
+          opt.value = res.club;
+          opt.textContent = res.club;
+          clubSelect.appendChild(opt);
+        }
+        clubSelect.value = res.club || "";
+        memberVerified = !!(res.name && res.club && res.contact);
+        setMemberStatus(memberVerified ? "Member verified" : "Member data is incomplete", memberVerified ? "ok" : "error");
+      })
       .catch(err => {
-        console.error("Error:", err);
-        document.getElementById("clubList").innerHTML = '<option value="">-- Error loading clubs --</option>';
+        clearMember();
+        setMemberStatus("Unable to verify membership number", "error");
+        console.error(err);
       });
-  };
+  }
+
+  function clearMember() {
+    memberVerified = false;
+    document.getElementById("name").value = "";
+    document.getElementById("contact").value = "";
+    document.getElementById("clubList").value = "";
+  }
+
+  function setMemberStatus(message, type) {
+    const el = document.getElementById("memberStatus");
+    el.textContent = message;
+    el.className = "member-status" + (type ? " " + type : "");
+    if (!type && message) el.style.display = "block";
+    else el.style.display = "";
+  }
 
   function toggleQR(val) {
     document.getElementById("qr-section").style.display = (val === "QR") ? "block" : "none";
   }
 
-  // फर्म सबमिट हुँदा डाटा सिटमा पठाउने र ह्वाट्सएप खोल्ने
+  function loadContributions() {
+    fetch(WEB_APP_URL + "?action=contributions")
+      .then(response => response.json())
+      .then(rows => {
+        const wrap = document.getElementById("tableWrap");
+        if (!Array.isArray(rows) || rows.length === 0) {
+          wrap.className = "table-message";
+          wrap.textContent = "No contribution data found.";
+          return;
+        }
+        let html = '<table class="contribution-table"><thead><tr>' +
+          '<th>Name</th><th>Club Name</th><th>Contact</th><th>Amount</th><th>Payment Type</th>' +
+          '</tr></thead><tbody>';
+        rows.forEach(r => {
+          html += '<tr><td>' + esc(r.name) + '</td><td>' + esc(r.club) + '</td><td>' + esc(r.contact) + '</td><td>' + esc(r.amount) + '</td><td>' + esc(r.payment) + '</td></tr>';
+        });
+        html += '</tbody></table>';
+        wrap.className = "";
+        wrap.innerHTML = html;
+      })
+      .catch(err => {
+        document.getElementById("tableWrap").textContent = "Unable to load contribution data.";
+        console.error(err);
+      });
+  }
+
+  function esc(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+  }
+
   document.getElementById("donationForm").onsubmit = function(e) {
     e.preventDefault();
+    if (!memberVerified) {
+      alert("Please enter a valid Membership Number first.");
+      document.getElementById("membership").focus();
+      return;
+    }
     const btn = document.getElementById("submitBtn");
     btn.disabled = true;
     btn.innerText = "Processing Please Wait...";
-    
     const formData = {
       name: document.getElementById("name").value,
       club: document.getElementById("clubList").value,
       contact: document.getElementById("contact").value,
       amount: document.getElementById("amount").value,
-      payment: document.getElementById("paymentType").value
+      payment: document.getElementById("paymentType").value,
+      membership: document.getElementById("membership").value.trim()
     };
-
-    fetch(WEB_APP_URL, {
-      method: "POST",
-      body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(res => {
-      // 🌟 ह्वाट्सएप म्यासेजबाट डिजाईनरको विवरण पूर्ण रूपमा हटाइएको छ
-      var message = `नमस्ते लायन भुवन नेपाल ज्यू,%0A%0ANepal Lions Foundation (NLF) को लागि मेरो Donation विवरण यस प्रकार छ:%0A%0A` +
-                    `नाम: ${encodeURIComponent(formData.name)}%0A` +
-                    `क्लबको नाम: ${encodeURIComponent(formData.club)}%0A` +
-                    `सम्पर्क नम्बर: ${encodeURIComponent(formData.contact)}%0A` +
-                    `रकम: ${encodeURIComponent(formData.amount)}%0A` +
-                    `भुक्तानीको प्रकार: ${encodeURIComponent(formData.payment)}%0A%0A` +
-                    `मैले भुक्तानी भौचरको फोटो यसै साथ संलग्न गरेको छु ।`;
-      
-      // भुवन नेपाल ज्यूको नम्बर फिक्स गरिएको छ
-      var whatsappUrl = "https://api.whatsapp.com/send?phone=9779851003853&text=" + message;
-      
-      window.open(whatsappUrl, '_blank');
-      document.getElementById("donationForm").reset();
-      toggleQR("");
-      alert("विवरण सफलतापूर्वक सुरक्षित गरियो र व्हाट्सएप खुल्दैछ !");
-    })
-    .catch(err => {
-      alert("जडानमा समस्या आयो, कृपया पुन: प्रयास गर्नुहोस्।");
-      console.error(err);
-    })
-    .finally(() => {
-      btn.disabled = false;
-      btn.innerText = "Submit & Send Message";
-    });
+    fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify(formData) })
+      .then(response => response.json())
+      .then(res => {
+        if (!res || res.status !== "success") throw new Error(res && res.message ? res.message : "Save failed");
+        var message = `नमस्ते लायन भुवन नेपाल ज्यू,%0A%0ANepal Lions Foundation (NLF) को लागि मेरो Donation विवरण यस प्रकार छ:%0A%0A` +
+          `नाम: ${encodeURIComponent(formData.name)}%0A` +
+          `क्लबको नाम: ${encodeURIComponent(formData.club)}%0A` +
+          `सम्पर्क नम्बर: ${encodeURIComponent(formData.contact)}%0A` +
+          `रकम: ${encodeURIComponent(formData.amount)}%0A` +
+          `भुक्तानीको प्रकार: ${encodeURIComponent(formData.payment)}%0A%0A` +
+          `मैले भुक्तानी भौचरको फोटो यसै साथ संलग्न गरेको छु ।`;
+        var whatsappUrl = "https://api.whatsapp.com/send?phone=9779851003853&text=" + message;
+        window.open(whatsappUrl, '_blank');
+        document.getElementById("donationForm").reset();
+        clearMember();
+        setMemberStatus("", "");
+        toggleQR("");
+        loadContributions();
+        alert("विवरण सफलतापूर्वक सुरक्षित गरियो र व्हाट्सएप खुल्दैछ !");
+      })
+      .catch(err => {
+        alert("जडानमा समस्या आयो, कृपया पुन: प्रयास गर्नुहोस् ।");
+        console.error(err);
+      })
+      .finally(() => {
+        btn.disabled = false;
+        btn.innerText = "Submit & Send Message";
+      });
   };
 </script>
-
 </body>
 </html>
