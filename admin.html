@@ -389,14 +389,6 @@ td {
 }
 </style>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
-<!-- ============================================================
-     TEXT PDF ENGINE
-     jsPDF + AutoTable create real selectable text and table cells.
-     ============================================================ -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
-
 </head>
  <body>
   <div class="wrap">
@@ -973,15 +965,6 @@ async function downloadPdfDirect() {
     return;
   }
 
-  if (
-    !window.jspdf ||
-    !window.jspdf.jsPDF ||
-    typeof window.jspdf.jsPDF !== 'function'
-  ) {
-    alert('PDF engine is still loading. Please try again.');
-    return;
-  }
-
   const button = document.querySelector(
     'button[onclick="downloadPdfDirect()"]'
   );
@@ -993,282 +976,37 @@ async function downloadPdfDirect() {
   }
 
   try {
-    const { jsPDF } = window.jspdf;
+    const pdfBytes = buildStandaloneTextPdf(rows);
+    const blob = new Blob(
+      [pdfBytes],
+      { type: 'application/pdf' }
+    );
 
-    const doc = new jsPDF({
-      orientation: 'portrait',
-      unit: 'mm',
-      format: 'a4',
-      compress: true
-    });
-
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
-
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
     const now = new Date();
+
     const fileDate =
       now.getFullYear() + '-' +
       String(now.getMonth() + 1).padStart(2, '0') + '-' +
       String(now.getDate()).padStart(2, '0');
 
-    const meta = [];
-
-    if ($('from').value) {
-      meta.push('From: ' + $('from').value);
-    }
-
-    if ($('to').value) {
-      meta.push('To: ' + $('to').value);
-    }
-
-    if ($('payment').value) {
-      meta.push('Payment: ' + $('payment').value);
-    }
-
-    if ($('status').value) {
-      meta.push('Status: ' + $('status').value);
-    }
-
-    let totalAmount = 0;
-
-    const tableBody = rows.map(function(row, index) {
-      const amount = num(row.amount);
-      totalAmount += amount;
-
-      return [
-        String(index + 1),
-        String(row.name || ''),
-        String(row.club || ''),
-        String(row.membership || ''),
-        String(row.contact || ''),
-        'Rs. ' + amount.toLocaleString('en-IN'),
-        String(row.payment || '')
-      ];
-    });
-
-    /* ==========================================================
-       PDF HEADER
-       ========================================================== */
-
-    doc.setDrawColor(201, 154, 22);
-    doc.setLineWidth(1.2);
-    doc.line(10, 10, pageWidth - 10, 10);
-
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(0, 59, 111);
-    doc.setFontSize(17);
-    doc.text(
-      'Lions International',
-      pageWidth / 2,
-      18,
-      { align: 'center' }
-    );
-
-    doc.setFontSize(11);
-    doc.text(
-      'District 325 F',
-      pageWidth / 2,
-      24,
-      { align: 'center' }
-    );
-
-    doc.setTextColor(164, 122, 0);
-    doc.setFontSize(12.5);
-    doc.text(
-      'Nepal Lions Foundation (NLF) Contribution Report',
-      pageWidth / 2,
-      31,
-      { align: 'center' }
-    );
-
-    doc.setDrawColor(218, 226, 233);
-    doc.setLineWidth(0.3);
-    doc.line(10, 36, pageWidth - 10, 36);
-
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(75, 85, 99);
-    doc.setFontSize(7.8);
-
-    doc.text(
-      meta.join(' | ') || 'All Contribution Records',
-      10,
-      42
-    );
-
-    doc.text(
-      'Generated: ' + now.toLocaleString(),
-      pageWidth - 10,
-      42,
-      { align: 'right' }
-    );
-
-    /* ==========================================================
-       REAL TEXT TABLE
-       No screenshot / no image conversion.
-       ========================================================== */
-
-    doc.autoTable({
-      startY: 47,
-
-      head: [[
-        'S.N.',
-        'Name',
-        'Club Name',
-        'Membership',
-        'Contact',
-        'Amount',
-        'Payment Type'
-      ]],
-
-      body: tableBody,
-
-      theme: 'grid',
-
-      margin: {
-        left: 8,
-        right: 8,
-        bottom: 18
-      },
-
-      styles: {
-        font: 'helvetica',
-        fontStyle: 'normal',
-        fontSize: 8.1,
-        cellPadding: 2,
-        valign: 'middle',
-        overflow: 'linebreak',
-        textColor: [31, 41, 55],
-        lineColor: [218, 226, 233],
-        lineWidth: 0.15
-      },
-
-      headStyles: {
-        fillColor: [0, 67, 116],
-        textColor: [255, 255, 255],
-        font: 'helvetica',
-        fontStyle: 'bold',
-        fontSize: 8.1,
-        halign: 'left',
-        valign: 'middle'
-      },
-
-      alternateRowStyles: {
-        fillColor: [248, 250, 252]
-      },
-
-      columnStyles: {
-        0: {
-          cellWidth: 10,
-          halign: 'center'
-        },
-
-        1: {
-          cellWidth: 34
-        },
-
-        2: {
-          cellWidth: 38
-        },
-
-        3: {
-          cellWidth: 27
-        },
-
-        4: {
-          cellWidth: 25
-        },
-
-        5: {
-          cellWidth: 25,
-          halign: 'right'
-        },
-
-        6: {
-          cellWidth: 28
-        }
-      },
-
-      didDrawPage: function() {
-        const currentPage = doc.internal.getCurrentPageInfo().pageNumber;
-
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(7.2);
-        doc.setTextColor(100, 116, 139);
-
-        doc.text(
-          'Designed by: Nirajan Aryal | Mobile: 9851113811',
-          pageWidth / 2,
-          pageHeight - 7,
-          { align: 'center' }
-        );
-
-        doc.text(
-          'Page ' + currentPage,
-          pageWidth - 10,
-          pageHeight - 7,
-          { align: 'right' }
-        );
-      }
-    });
-
-    /* ==========================================================
-       REPORT TOTAL
-       ========================================================== */
-
-    let summaryY = doc.lastAutoTable.finalY + 7;
-
-    if (summaryY > pageHeight - 30) {
-      doc.addPage();
-      summaryY = 18;
-    }
-
-    doc.setFillColor(255, 248, 224);
-    doc.setDrawColor(215, 169, 35);
-    doc.setLineWidth(0.4);
-
-    doc.roundedRect(
-      10,
-      summaryY,
-      pageWidth - 20,
-      16,
-      2,
-      2,
-      'FD'
-    );
-
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(0, 59, 111);
-    doc.setFontSize(9.5);
-
-    doc.text(
-      'Total Records: ' + rows.length,
-      15,
-      summaryY + 9.5
-    );
-
-    doc.text(
-      'NLF Total Contribution: Rs. ' +
-        totalAmount.toLocaleString('en-IN'),
-      pageWidth - 15,
-      summaryY + 9.5,
-      { align: 'right' }
-    );
-
-    /* ==========================================================
-       DIRECT PDF DOWNLOAD
-       ========================================================== */
-
-    doc.save(
+    link.href = url;
+    link.download =
       'NLF_Contribution_Report_' +
       fileDate +
-      '.pdf'
-    );
-  } catch (error) {
-    console.error('Direct text PDF download failed:', error);
+      '.pdf';
 
-    alert(
-      'Unable to create the text PDF. Please try again.'
-    );
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(function() {
+      URL.revokeObjectURL(url);
+    }, 1500);
+  } catch (error) {
+    console.error('Direct PDF download failed:', error);
+    alert('Unable to create PDF. Please try again.');
   } finally {
     if (button) {
       button.disabled = false;
@@ -1276,6 +1014,540 @@ async function downloadPdfDirect() {
     }
   }
 }
+
+
+/* ============================================================
+   STANDALONE TEXT PDF GENERATOR
+   ------------------------------------------------------------
+   - No CDN
+   - No jsPDF
+   - No html2canvas
+   - No image/screenshot conversion
+   - Real selectable PDF text
+   - Real vector table lines/backgrounds
+   ============================================================ */
+
+function buildStandaloneTextPdf(rows) {
+  const PAGE_W = 595.28;
+  const PAGE_H = 841.89;
+
+  const LEFT = 24;
+  const RIGHT = 24;
+  const TOP = 54;
+  const BOTTOM = 48;
+
+  const headerY = 705;
+  const rowHeight = 25;
+
+  const columns = [
+    { title: 'S.N.', width: 34, align: 'center' },
+    { title: 'Name', width: 108, align: 'left' },
+    { title: 'Club Name', width: 123, align: 'left' },
+    { title: 'Membership', width: 78, align: 'left' },
+    { title: 'Contact', width: 78, align: 'left' },
+    { title: 'Amount', width: 76, align: 'right' },
+    { title: 'Payment', width: 50, align: 'left' }
+  ];
+
+  const tableWidth = columns.reduce(function(sum, col) {
+    return sum + col.width;
+  }, 0);
+
+  const pageRows = Math.max(
+    1,
+    Math.floor((headerY - BOTTOM - 44) / rowHeight)
+  );
+
+  const pages = [];
+
+  for (let start = 0; start < rows.length; start += pageRows) {
+    pages.push(rows.slice(start, start + pageRows));
+  }
+
+  if (!pages.length) {
+    pages.push([]);
+  }
+
+  const objects = [];
+  const pageObjectNumbers = [];
+  const contentObjectNumbers = [];
+
+  // Object 1: Catalog
+  objects.push(
+    '<< /Type /Catalog /Pages 2 0 R >>'
+  );
+
+  // Object 2 is filled after page objects are allocated.
+  objects.push('');
+
+  // Object 3: Regular Helvetica
+  objects.push(
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>'
+  );
+
+  // Object 4: Bold Helvetica
+  objects.push(
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>'
+  );
+
+  pages.forEach(function(pageRowsData, pageIndex) {
+    const pageObjectNumber = objects.length + 1;
+    const contentObjectNumber = pageObjectNumber + 1;
+
+    pageObjectNumbers.push(pageObjectNumber);
+    contentObjectNumbers.push(contentObjectNumber);
+
+    const stream = buildPdfPageStream(
+      pageRowsData,
+      pageIndex,
+      pages.length,
+      rows,
+      columns,
+      tableWidth,
+      LEFT,
+      PAGE_W,
+      PAGE_H,
+      headerY,
+      rowHeight
+    );
+
+    objects.push(
+      '<< /Type /Page ' +
+      '/Parent 2 0 R ' +
+      '/MediaBox [0 0 ' + PAGE_W + ' ' + PAGE_H + '] ' +
+      '/Resources << ' +
+      '/Font << /F1 3 0 R /F2 4 0 R >> ' +
+      '>> ' +
+      '/Contents ' + contentObjectNumber + ' 0 R ' +
+      '>>'
+    );
+
+    objects.push(
+      '<< /Length ' + byteLengthLatin1(stream) + ' >>\n' +
+      'stream\n' +
+      stream +
+      '\nendstream'
+    );
+  });
+
+  objects[1] =
+    '<< /Type /Pages /Count ' +
+    pageObjectNumbers.length +
+    ' /Kids [' +
+    pageObjectNumbers.map(function(n) {
+      return n + ' 0 R';
+    }).join(' ') +
+    '] >>';
+
+  return assemblePdf(objects);
+}
+
+
+function buildPdfPageStream(
+  pageRowsData,
+  pageIndex,
+  totalPages,
+  allRows,
+  columns,
+  tableWidth,
+  left,
+  pageWidth,
+  pageHeight,
+  headerY,
+  rowHeight
+) {
+  const commands = [];
+  const now = new Date();
+
+  /* ---------- Header ---------- */
+
+  commands.push('0.788 0.604 0.086 RG');
+  commands.push('1.5 w');
+  commands.push(
+    left + ' ' + (pageHeight - 42) + ' m ' +
+    (pageWidth - left) + ' ' + (pageHeight - 42) + ' l S'
+  );
+
+  pdfText(
+    commands,
+    'Lions International',
+    pageWidth / 2,
+    pageHeight - 68,
+    17,
+    true,
+    'center',
+    [0.000, 0.231, 0.435]
+  );
+
+  pdfText(
+    commands,
+    'District 325 F',
+    pageWidth / 2,
+    pageHeight - 86,
+    11,
+    true,
+    'center',
+    [0.000, 0.231, 0.435]
+  );
+
+  pdfText(
+    commands,
+    'Nepal Lions Foundation (NLF) Contribution Report',
+    pageWidth / 2,
+    pageHeight - 106,
+    12,
+    true,
+    'center',
+    [0.643, 0.478, 0.000]
+  );
+
+  commands.push('0.855 0.886 0.914 RG');
+  commands.push('0.5 w');
+  commands.push(
+    left + ' ' + (pageHeight - 122) + ' m ' +
+    (pageWidth - left) + ' ' + (pageHeight - 122) + ' l S'
+  );
+
+  pdfText(
+    commands,
+    pageIndex === 0 ? 'All Contribution Records' : 'Contribution Records',
+    left,
+    pageHeight - 142,
+    7.8,
+    false,
+    'left',
+    [0.294, 0.333, 0.388]
+  );
+
+  pdfText(
+    commands,
+    'Generated: ' + now.toLocaleString(),
+    pageWidth - left,
+    pageHeight - 142,
+    7.8,
+    false,
+    'right',
+    [0.294, 0.333, 0.388]
+  );
+
+  /* ---------- Table Header ---------- */
+
+  let x = left;
+
+  columns.forEach(function(col) {
+    pdfFillRect(
+      commands,
+      x,
+      headerY,
+      col.width,
+      24,
+      [0.000, 0.263, 0.455]
+    );
+
+    pdfText(
+      commands,
+      col.title,
+      col.align === 'center'
+        ? x + (col.width / 2)
+        : x + 5,
+      headerY + 8,
+      7.8,
+      true,
+      col.align === 'center' ? 'center' : 'left',
+      [1, 1, 1]
+    );
+
+    x += col.width;
+  });
+
+  /* ---------- Table Rows ---------- */
+
+  let y = headerY - rowHeight;
+
+  pageRowsData.forEach(function(row, localIndex) {
+    const globalIndex =
+      (pageIndex * Math.max(1, Math.floor((headerY - 48 - 44) / rowHeight))) +
+      localIndex +
+      1;
+
+    if (localIndex % 2 === 1) {
+      pdfFillRect(
+        commands,
+        left,
+        y,
+        tableWidth,
+        rowHeight,
+        [0.973, 0.980, 0.988]
+      );
+    }
+
+    const amount = num(row.amount);
+
+    const values = [
+      String(globalIndex),
+      safePdfCell(row.name),
+      safePdfCell(row.club),
+      safePdfCell(row.membership),
+      safePdfCell(row.contact),
+      'Rs. ' + amount.toLocaleString('en-IN'),
+      safePdfCell(row.payment)
+    ];
+
+    x = left;
+
+    columns.forEach(function(col, colIndex) {
+      commands.push('0.855 0.886 0.914 RG');
+      commands.push('0.35 w');
+      commands.push(
+        x + ' ' + y + ' ' +
+        col.width + ' ' + rowHeight + ' re S'
+      );
+
+      let tx = x + 5;
+      let align = 'left';
+
+      if (col.align === 'center') {
+        tx = x + (col.width / 2);
+        align = 'center';
+      }
+
+      if (col.align === 'right') {
+        tx = x + col.width - 5;
+        align = 'right';
+      }
+
+      pdfText(
+        commands,
+        fitPdfText(values[colIndex], col.width - 10, 7.2),
+        tx,
+        y + 9,
+        7.2,
+        false,
+        align,
+        [0.122, 0.161, 0.216]
+      );
+
+      x += col.width;
+    });
+
+    y -= rowHeight;
+  });
+
+  /* ---------- Summary on Final Page ---------- */
+
+  if (pageIndex === totalPages - 1) {
+    const totalAmount = allRows.reduce(function(sum, row) {
+      return sum + num(row.amount);
+    }, 0);
+
+    let summaryY = y - 10;
+
+    if (summaryY < 55) {
+      summaryY = 55;
+    }
+
+    pdfFillRect(
+      commands,
+      left,
+      summaryY,
+      tableWidth,
+      32,
+      [1.000, 0.973, 0.878]
+    );
+
+    pdfText(
+      commands,
+      'Total Records: ' + allRows.length,
+      left + 10,
+      summaryY + 12,
+      9.5,
+      true,
+      'left',
+      [0.000, 0.231, 0.435]
+    );
+
+    pdfText(
+      commands,
+      'NLF Total Contribution: Rs. ' +
+        totalAmount.toLocaleString('en-IN'),
+      left + tableWidth - 10,
+      summaryY + 12,
+      9.5,
+      true,
+      'right',
+      [0.000, 0.231, 0.435]
+    );
+  }
+
+  /* ---------- Footer ---------- */
+
+  pdfText(
+    commands,
+    'Designed by: Nirajan Aryal | Mobile: 9851113811',
+    pageWidth / 2,
+    24,
+    7.2,
+    false,
+    'center',
+    [0.392, 0.455, 0.545]
+  );
+
+  pdfText(
+    commands,
+    'Page ' + (pageIndex + 1) + ' of ' + totalPages,
+    pageWidth - left,
+    24,
+    7.2,
+    false,
+    'right',
+    [0.392, 0.455, 0.545]
+  );
+
+  return commands.join('\n');
+}
+
+
+function pdfText(
+  commands,
+  text,
+  x,
+  y,
+  size,
+  bold,
+  align,
+  rgb
+) {
+  const value = escapePdfText(String(text || ''));
+  const estimatedWidth =
+    estimatePdfTextWidth(String(text || ''), size, bold);
+
+  let drawX = x;
+
+  if (align === 'center') {
+    drawX = x - (estimatedWidth / 2);
+  } else if (align === 'right') {
+    drawX = x - estimatedWidth;
+  }
+
+  commands.push(
+    rgb[0] + ' ' + rgb[1] + ' ' + rgb[2] + ' rg'
+  );
+
+  commands.push(
+    'BT ' +
+    '/' + (bold ? 'F2' : 'F1') + ' ' + size + ' Tf ' +
+    '1 0 0 1 ' + drawX.toFixed(2) + ' ' + y.toFixed(2) + ' Tm ' +
+    '(' + value + ') Tj ET'
+  );
+}
+
+
+function pdfFillRect(commands, x, y, width, height, rgb) {
+  commands.push(
+    rgb[0] + ' ' + rgb[1] + ' ' + rgb[2] + ' rg'
+  );
+
+  commands.push(
+    x + ' ' + y + ' ' + width + ' ' + height + ' re f'
+  );
+}
+
+
+function safePdfCell(value) {
+  return String(value == null ? '' : value)
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+
+function fitPdfText(text, maxWidth, fontSize) {
+  const value = safePdfCell(text);
+
+  if (estimatePdfTextWidth(value, fontSize, false) <= maxWidth) {
+    return value;
+  }
+
+  let shortened = value;
+
+  while (
+    shortened.length > 3 &&
+    estimatePdfTextWidth(
+      shortened + '...',
+      fontSize,
+      false
+    ) > maxWidth
+  ) {
+    shortened = shortened.slice(0, -1);
+  }
+
+  return shortened + '...';
+}
+
+
+function estimatePdfTextWidth(text, fontSize, bold) {
+  const factor = bold ? 0.54 : 0.50;
+
+  return String(text || '').length * fontSize * factor;
+}
+
+
+function escapePdfText(text) {
+  return String(text || '')
+    .replace(/\\/g, '\\\\')
+    .replace(/\(/g, '\\(')
+    .replace(/\)/g, '\\)')
+    .replace(/[^\x20-\x7E]/g, '?');
+}
+
+
+function byteLengthLatin1(text) {
+  return String(text).length;
+}
+
+
+function assemblePdf(objects) {
+  let pdf = '%PDF-1.4\n%\xE2\xE3\xCF\xD3\n';
+  const offsets = [0];
+
+  objects.forEach(function(objectBody, index) {
+    offsets.push(pdf.length);
+
+    pdf +=
+      (index + 1) +
+      ' 0 obj\n' +
+      objectBody +
+      '\nendobj\n';
+  });
+
+  const xrefOffset = pdf.length;
+
+  pdf +=
+    'xref\n' +
+    '0 ' + (objects.length + 1) + '\n' +
+    '0000000000 65535 f \n';
+
+  for (let i = 1; i <= objects.length; i++) {
+    pdf +=
+      String(offsets[i]).padStart(10, '0') +
+      ' 00000 n \n';
+  }
+
+  pdf +=
+    'trailer\n' +
+    '<< /Size ' + (objects.length + 1) + ' /Root 1 0 R >>\n' +
+    'startxref\n' +
+    xrefOffset +
+    '\n%%EOF';
+
+  const bytes = new Uint8Array(pdf.length);
+
+  for (let i = 0; i < pdf.length; i++) {
+    bytes[i] = pdf.charCodeAt(i) & 0xFF;
+  }
+
+  return bytes;
+}
+
 
 function num(v) {
   return Number(String(v??'').replace(/[^0-9.-]/g,''))||0
