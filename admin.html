@@ -389,6 +389,14 @@ td {
 }
 </style>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<!-- ============================================================
+     TEXT PDF ENGINE
+     jsPDF + AutoTable create real selectable text and table cells.
+     ============================================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
+
 </head>
  <body>
   <div class="wrap">
@@ -946,7 +954,15 @@ function printPdf() {
     alert('Please allow pop-ups to open the PDF preview.');
     return
   }
-  w.document.write(`<!doctype html><html><head><title>NLF Contribution Report</title><style>@page{size:A4 portrait;margin:12mm 10mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#1f2937;margin:0;background:#fff}.reportSheet{width:100%;padding:0}.reportHead{position:relative;text-align:center;border:1px solid #d9e2ea;border-top:5px solid #c99a16;border-radius:8px;padding:13px 10px 12px;margin-bottom:11px;min-height:78px}.reportHead img{position:absolute;left:13px;top:13px;width:50px;height:auto}.reportHead h1{font-size:21px;color:#003b6f;margin:0 0 3px;font-weight:800}.reportHead h2{font-size:14px;color:#31566f;margin:0 0 4px}.reportHead h3{font-size:15px;color:#9b7400;margin:0;font-weight:700}.reportMeta{display:flex;justify-content:space-between;gap:10px;font-size:10px;margin:9px 0 11px;padding:8px 9px;background:#f5f8fb;border:1px solid #dfe7ee;border-radius:5px}.tablebox{width:100%;overflow:visible}.reportTable{width:100%;border-collapse:collapse;table-layout:fixed;font-size:9.5px}.reportTable th{background:#0b5d75;color:#fff;padding:7px 5px;text-align:left;border:1px solid #0b5d75;font-size:9.5px;line-height:1.2}.reportTable td{padding:6px 5px;border:1px solid #dbe3e9;vertical-align:top;overflow-wrap:anywhere;line-height:1.25}.reportTable tbody tr:nth-child(even){background:#f8fafb}.reportTable th:nth-child(1),.reportTable td:nth-child(1){width:6%;text-align:center}.reportTable th:nth-child(2),.reportTable td:nth-child(2){width:20%}.reportTable th:nth-child(3),.reportTable td:nth-child(3){width:23%}.reportTable th:nth-child(4),.reportTable td:nth-child(4){width:13%}.reportTable th:nth-child(5),.reportTable td:nth-child(5){width:14%}.reportTable th:nth-child(6),.reportTable td:nth-child(6){width:12%}.reportTable th:nth-child(7),.reportTable td:nth-child(7){width:12%}.reportTotal{margin-top:11px;padding:10px 11px;background:#fff9e9;border:1px solid #e7c75d;border-left:5px solid #c99a16;border-radius:5px;font-size:11px;font-weight:bold;color:#003b6f}.reportFooter{text-align:center;margin-top:15px;padding-top:8px;border-top:1px solid #dfe6ed;font-size:9px;color:#667}.modalActions{display:none}thead{display:table-header-group}tr{page-break-inside:avoid}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.reportHead,.reportMeta,.reportTotal{break-inside:avoid}}</style></head><body>${html}<script>window.onload=()=>setTimeout(()=>window.print(),250)<\/script></body></html>`);
+  w.document.write(`<!doctype html><html><head><title>NLF Contribution Report</title><style>@page{size:A4 portrait;margin:12mm 10mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#1f2937;margin:0;background:#fff}.reportSheet{width:100%;padding:0}.reportHead{position:relative;text-align:center;border:1px solid #d9e2ea;border-top:5px solid #c99a16;border-radius:8px;padding:13px 10px 12px;margin-bottom:11px;min-height:78px}.reportHead img{position:absolute;left:13px;top:13px;width:50px;height:auto}.reportHead h1{font-size:21px;color:#003b6f;margin:0 0 3px;font-weight:800}.reportHead h2{font-size:14px;color:#31566f;margin:0 0 4px}.reportHead h3{font-size:15px;color:#9b7400;margin:0;font-weight:700}.reportMeta{display:flex;justify-content:space-between;gap:10px;font-size:10px;margin:9px 0 11px;padding:8px 9px;background:#f5f8fb;border:1px solid #dfe7ee;border-radius:5px}.tablebox{width:100%;overflow:visible}.reportTable{width:100%;border-collapse:collapse;table-layout:fixed;font-size:9.5px}.reportTable th{background:#0b5d75;color:#fff;padding:7px 5px;text-align:left;border:1px solid #0b5d75;font-size:9.5px;line-height:1.2}.reportTable td{padding:6px 5px;border:1px solid #dbe3e9;vertical-align:top;overflow-wrap:anywhere;line-height:1.25}.reportTable tbody tr:nth-child(even){background:#f8fafb}.reportTable th:nth-child(1),.reportTable td:nth-child(1){width:6%;text-align:center}.reportTable th:nth-child(2),.reportTable td:nth-child(2){width:20%}.reportTable th:nth-child(3),.reportTable td:nth-child(3){width:23%}.reportTable th:nth-child(4),.reportTable td:nth-child(4){width:13%}.reportTable th:nth-child(5),.reportTable td:nth-child(5){width:14%}.reportTable th:nth-child(6),.reportTable td:nth-child(6){width:12%}.reportTable th:nth-child(7),.reportTable td:nth-child(7){width:12%}.reportTotal{margin-top:11px;padding:10px 11px;background:#fff9e9;border:1px solid #e7c75d;border-left:5px solid #c99a16;border-radius:5px;font-size:11px;font-weight:bold;color:#003b6f}.reportFooter{text-align:center;margin-top:15px;padding-top:8px;border-top:1px solid #dfe6ed;font-size:9px;color:#667}.modalActions{display:none}thead{display:table-header-group}tr{page-break-inside:avoid}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.reportHead,.reportMeta,.reportTotal{break-inside:avoid}}</style>
+<!-- ============================================================
+     TEXT PDF ENGINE
+     jsPDF + AutoTable create real selectable text and table cells.
+     ============================================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
+
+</head><body>${html}<script>window.onload=()=>setTimeout(()=>window.print(),250)<\/script></body></html>`);
   w.document.close()
 }
 
@@ -957,19 +973,25 @@ function printPdf() {
    Existing Print / Save PDF behavior remains unchanged.
    ============================================================ */
 async function downloadPdfDirect() {
-  const report = $('reportContent');
+  const rows = filtered();
 
-  if (!report || !report.innerHTML.trim()) {
-    alert('Please open the PDF report first.');
+  if (!rows.length) {
+    alert('No contribution data available for PDF.');
     return;
   }
 
-  if (typeof html2pdf === 'undefined') {
-    alert('PDF download engine is still loading. Please try again.');
+  if (
+    !window.jspdf ||
+    !window.jspdf.jsPDF ||
+    typeof window.jspdf.jsPDF !== 'function'
+  ) {
+    alert('PDF engine is still loading. Please try again.');
     return;
   }
 
-  const button = document.querySelector('button[onclick="downloadPdfDirect()"]');
+  const button = document.querySelector(
+    'button[onclick="downloadPdfDirect()"]'
+  );
   const oldText = button ? button.textContent : '';
 
   if (button) {
@@ -977,41 +999,283 @@ async function downloadPdfDirect() {
     button.textContent = 'Downloading...';
   }
 
-  const today = new Date();
-  const fileDate =
-    today.getFullYear() + '-' +
-    String(today.getMonth() + 1).padStart(2, '0') + '-' +
-    String(today.getDate()).padStart(2, '0');
+  try {
+    const { jsPDF } = window.jspdf;
 
-  const options = {
-    margin: [10, 8, 10, 8],
-    filename: 'NLF_Contribution_Report_' + fileDate + '.pdf',
-    image: {
-      type: 'jpeg',
-      quality: 0.98
-    },
-    html2canvas: {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: '#ffffff',
-      logging: false
-    },
-    jsPDF: {
+    const doc = new jsPDF({
+      orientation: 'portrait',
       unit: 'mm',
       format: 'a4',
-      orientation: 'portrait'
-    },
-    pagebreak: {
-      mode: ['css', 'legacy'],
-      avoid: ['tr', '.reportHead', '.reportMeta', '.reportTotal']
-    }
-  };
+      compress: true
+    });
 
-  try {
-    await html2pdf().set(options).from(report).save();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    const now = new Date();
+    const fileDate =
+      now.getFullYear() + '-' +
+      String(now.getMonth() + 1).padStart(2, '0') + '-' +
+      String(now.getDate()).padStart(2, '0');
+
+    const meta = [];
+
+    if ($('from').value) {
+      meta.push('From: ' + $('from').value);
+    }
+
+    if ($('to').value) {
+      meta.push('To: ' + $('to').value);
+    }
+
+    if ($('payment').value) {
+      meta.push('Payment: ' + $('payment').value);
+    }
+
+    if ($('status').value) {
+      meta.push('Status: ' + $('status').value);
+    }
+
+    let totalAmount = 0;
+
+    const tableBody = rows.map(function(row, index) {
+      const amount = num(row.amount);
+      totalAmount += amount;
+
+      return [
+        String(index + 1),
+        String(row.name || ''),
+        String(row.club || ''),
+        String(row.membership || ''),
+        String(row.contact || ''),
+        'Rs. ' + amount.toLocaleString('en-IN'),
+        String(row.payment || '')
+      ];
+    });
+
+    /* ==========================================================
+       PDF HEADER
+       ========================================================== */
+
+    doc.setDrawColor(201, 154, 22);
+    doc.setLineWidth(1.2);
+    doc.line(10, 10, pageWidth - 10, 10);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(0, 59, 111);
+    doc.setFontSize(17);
+    doc.text(
+      'Lions International',
+      pageWidth / 2,
+      18,
+      { align: 'center' }
+    );
+
+    doc.setFontSize(11);
+    doc.text(
+      'District 325 F',
+      pageWidth / 2,
+      24,
+      { align: 'center' }
+    );
+
+    doc.setTextColor(164, 122, 0);
+    doc.setFontSize(12.5);
+    doc.text(
+      'Nepal Lions Foundation (NLF) Contribution Report',
+      pageWidth / 2,
+      31,
+      { align: 'center' }
+    );
+
+    doc.setDrawColor(218, 226, 233);
+    doc.setLineWidth(0.3);
+    doc.line(10, 36, pageWidth - 10, 36);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(75, 85, 99);
+    doc.setFontSize(7.8);
+
+    doc.text(
+      meta.join(' | ') || 'All Contribution Records',
+      10,
+      42
+    );
+
+    doc.text(
+      'Generated: ' + now.toLocaleString(),
+      pageWidth - 10,
+      42,
+      { align: 'right' }
+    );
+
+    /* ==========================================================
+       REAL TEXT TABLE
+       No screenshot / no image conversion.
+       ========================================================== */
+
+    doc.autoTable({
+      startY: 47,
+
+      head: [[
+        'S.N.',
+        'Name',
+        'Club Name',
+        'Membership',
+        'Contact',
+        'Amount',
+        'Payment Type'
+      ]],
+
+      body: tableBody,
+
+      theme: 'grid',
+
+      margin: {
+        left: 8,
+        right: 8,
+        bottom: 18
+      },
+
+      styles: {
+        font: 'helvetica',
+        fontStyle: 'normal',
+        fontSize: 8.1,
+        cellPadding: 2,
+        valign: 'middle',
+        overflow: 'linebreak',
+        textColor: [31, 41, 55],
+        lineColor: [218, 226, 233],
+        lineWidth: 0.15
+      },
+
+      headStyles: {
+        fillColor: [0, 67, 116],
+        textColor: [255, 255, 255],
+        font: 'helvetica',
+        fontStyle: 'bold',
+        fontSize: 8.1,
+        halign: 'left',
+        valign: 'middle'
+      },
+
+      alternateRowStyles: {
+        fillColor: [248, 250, 252]
+      },
+
+      columnStyles: {
+        0: {
+          cellWidth: 10,
+          halign: 'center'
+        },
+
+        1: {
+          cellWidth: 34
+        },
+
+        2: {
+          cellWidth: 38
+        },
+
+        3: {
+          cellWidth: 27
+        },
+
+        4: {
+          cellWidth: 25
+        },
+
+        5: {
+          cellWidth: 25,
+          halign: 'right'
+        },
+
+        6: {
+          cellWidth: 28
+        }
+      },
+
+      didDrawPage: function() {
+        const currentPage = doc.internal.getCurrentPageInfo().pageNumber;
+
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7.2);
+        doc.setTextColor(100, 116, 139);
+
+        doc.text(
+          'Designed by: Nirajan Aryal | Mobile: 9851113811',
+          pageWidth / 2,
+          pageHeight - 7,
+          { align: 'center' }
+        );
+
+        doc.text(
+          'Page ' + currentPage,
+          pageWidth - 10,
+          pageHeight - 7,
+          { align: 'right' }
+        );
+      }
+    });
+
+    /* ==========================================================
+       REPORT TOTAL
+       ========================================================== */
+
+    let summaryY = doc.lastAutoTable.finalY + 7;
+
+    if (summaryY > pageHeight - 30) {
+      doc.addPage();
+      summaryY = 18;
+    }
+
+    doc.setFillColor(255, 248, 224);
+    doc.setDrawColor(215, 169, 35);
+    doc.setLineWidth(0.4);
+
+    doc.roundedRect(
+      10,
+      summaryY,
+      pageWidth - 20,
+      16,
+      2,
+      2,
+      'FD'
+    );
+
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(0, 59, 111);
+    doc.setFontSize(9.5);
+
+    doc.text(
+      'Total Records: ' + rows.length,
+      15,
+      summaryY + 9.5
+    );
+
+    doc.text(
+      'NLF Total Contribution: Rs. ' +
+        totalAmount.toLocaleString('en-IN'),
+      pageWidth - 15,
+      summaryY + 9.5,
+      { align: 'right' }
+    );
+
+    /* ==========================================================
+       DIRECT PDF DOWNLOAD
+       ========================================================== */
+
+    doc.save(
+      'NLF_Contribution_Report_' +
+      fileDate +
+      '.pdf'
+    );
   } catch (error) {
-    console.error('Direct PDF download failed:', error);
-    alert('Unable to download PDF. Please try again.');
+    console.error('Direct text PDF download failed:', error);
+
+    alert(
+      'Unable to create the text PDF. Please try again.'
+    );
   } finally {
     if (button) {
       button.disabled = false;
