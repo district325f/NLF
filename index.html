@@ -5,337 +5,942 @@
      ============================================================ -->
 <!DOCTYPE html>
 <html lang="ne">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NLF Contribution Form</title>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   NLF Contribution Form
+  </title>
   <style>
-    :root{--primary-color:#002d62;--accent-color:#d4af37;--bg-color:#f0f4f8;--success:#18864b;--danger:#b42318;}
-    *{box-sizing:border-box} body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:30px 15px;background:linear-gradient(180deg,#f4f7fb 0%,var(--bg-color) 100%);color:#273444}
-    .page-shell{max-width:980px;margin:auto}.form-container{background:#fff;padding:32px 30px;border-radius:18px;max-width:480px;margin:auto;box-shadow:0 12px 34px rgba(0,45,98,.12);border-top:5px solid var(--accent-color)}
-    .brand-row{position:relative;min-height:74px}.admin-link{position:absolute;right:0;top:0;padding:7px 10px;border:1px solid #d6dee8;border-radius:999px;color:var(--primary-color);font-size:11px;font-weight:800;text-decoration:none;background:#fff}.admin-link:hover{background:#f6f9fc}.brand-logo{position:absolute;left:0;top:0;width:70px;height:70px;object-fit:contain}.header-section{text-align:center;margin-bottom:24px;padding:0 58px}.header-section h3{margin:0;color:var(--primary-color);font-size:17px;letter-spacing:1px;text-transform:uppercase;font-weight:800}.header-section h4{margin:5px 0 10px;color:#657184;font-size:14px;font-weight:600}.header-section h2{margin:0;color:var(--primary-color);font-size:22px;font-weight:800;line-height:1.3}.header-section .sub-title{color:var(--accent-color);font-size:19px;font-weight:800;margin-top:3px}
-    hr{border:0;height:1px;background:linear-gradient(to right,transparent,#ccd5df,transparent);margin:20px 0}.input-group{text-align:left;margin-bottom:18px}.input-group label{display:block;font-size:13px;color:var(--primary-color);font-weight:700;margin-bottom:6px}input,select{width:100%;padding:12px 14px;border:1px solid #ced8e3;border-radius:9px;font-size:15px;background:#f9fbfd;transition:.25s}input:focus,select:focus{outline:none;border-color:var(--primary-color);background:#fff;box-shadow:0 0 0 3px rgba(0,45,98,.09)}input[readonly],select:disabled{background:#eef3f7;color:#4e5b69;cursor:not-allowed}
-    button{width:100%;padding:14px;background:linear-gradient(135deg,#003d7d,#002d62);color:#fff;border:0;cursor:pointer;font-size:16px;font-weight:700;border-radius:9px;margin-top:10px;transition:.25s;box-shadow:0 5px 14px rgba(0,45,98,.22)}button:hover{transform:translateY(-1px);box-shadow:0 7px 18px rgba(0,45,98,.28)}button:disabled{background:#9eafc1;cursor:not-allowed;transform:none}
-    #qr-section{display:none;margin:15px 0;background:#fffdf3;padding:15px;border:2px dashed var(--accent-color);border-radius:10px;text-align:center}#qr-section img{width:220px;height:auto;border-radius:6px;margin:8px auto 0;display:block;box-shadow:0 4px 10px rgba(0,0,0,.05)}
-    .member-status{display:none;margin-top:8px;border-radius:8px;padding:9px 11px;font-size:12px;font-weight:700;align-items:center;gap:8px}.member-status.searching{display:flex;background:#eef5ff;color:#24578b}.member-status.ok{display:flex;background:#edf9f2;color:var(--success);border:1px solid #c9ead7}.member-status.error{display:flex;background:#fff1f0;color:var(--danger);border:1px solid #f3cbc7}.duplicate-note{display:none;margin-top:8px;padding:10px 11px;border-radius:8px;background:#fff8e1;border:1px solid #efd37a;color:#705500;font-size:12px;line-height:1.45}.duplicate-note.show{display:block}.status-spinner{width:13px;height:13px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-    .details-card{margin:26px auto 0;max-width:900px;background:#fff;border-radius:18px;padding:24px;box-shadow:0 12px 34px rgba(0,45,98,.10);border-top:4px solid var(--accent-color)}.details-heading{text-align:center;margin-bottom:18px}.details-heading h3{margin:0;color:var(--primary-color);font-size:23px;font-weight:800}.details-heading p{margin:5px 0 0;color:#7b8795;font-size:13px}.heading-accent{width:64px;height:3px;border-radius:3px;background:var(--accent-color);margin:10px auto 0}.stats-row{display:flex;gap:12px;margin-bottom:16px}.stat-box{flex:1;background:#f7f9fc;border:1px solid #e1e7ef;border-radius:12px;padding:12px 15px}.stat-label{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#788697;font-weight:700}.stat-value{margin-top:3px;color:var(--primary-color);font-size:18px;font-weight:800}.table-message{text-align:center;color:#777;padding:20px;font-size:13px}.table-loading{display:flex;align-items:center;justify-content:center;gap:9px}.contribution-table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;table-layout:fixed;border:1px solid #dbe3ec;border-radius:10px;overflow:hidden}.contribution-table th,.contribution-table td{padding:11px 12px;text-align:left;vertical-align:middle;border-bottom:1px solid #e3e9f0}.contribution-table th{background:var(--primary-color);color:#fff;font-weight:700}.contribution-table tbody tr:nth-child(even){background:#f8fafc}.contribution-table tbody tr:hover{background:#fff9e9}.contribution-table tbody tr:last-child td{border-bottom:0}.contribution-table th:nth-child(1),.contribution-table td:nth-child(1){width:6%;text-align:center}.contribution-table th:nth-child(2),.contribution-table td:nth-child(2){width:22%}.contribution-table th:nth-child(3),.contribution-table td:nth-child(3){width:25%}.contribution-table th:nth-child(4),.contribution-table td:nth-child(4){width:19%}.contribution-table th:nth-child(5),.contribution-table td:nth-child(5){width:13%}.contribution-table th:nth-child(6),.contribution-table td:nth-child(6){width:15%}.amount-cell{font-weight:700;color:var(--primary-color)}.payment-badge{display:inline-block;padding:4px 9px;border-radius:999px;background:#edf3f9;color:var(--primary-color);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.3px}
-    .total-summary{margin-top:15px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 18px;border:1px solid #e2b31f;border-radius:12px;background:linear-gradient(90deg,#fffaf0,#fff3c8,#fffaf0);color:var(--primary-color);box-shadow:0 4px 14px rgba(212,175,55,.12)}.total-summary-label{font-size:17px;font-weight:800}.total-summary-amount{padding:8px 16px;border-radius:9px;background:#f4c542;color:var(--primary-color);font-size:20px;font-weight:900;white-space:nowrap}
-    .mobile-cards{display:none}.contribution-card{border:1px solid #dfe6ee;border-radius:12px;padding:13px;margin-bottom:10px;background:#fff}.contribution-card-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.contribution-card-name{font-weight:800;color:var(--primary-color)}.contribution-card-club{font-size:12px;color:#6f7c8a;margin-top:3px}.contribution-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;font-size:12px}.mini-label{color:#84909e;font-size:10px;text-transform:uppercase;font-weight:700}.mini-value{font-weight:700;margin-top:2px}
-    .footer{max-width:900px;margin:18px auto 0;background:var(--primary-color);color:#fff;padding:12px 18px;border-radius:10px;text-align:center;font-size:13px;font-weight:700}.footer a{color:#fff;text-decoration:none}.footer a:hover{text-decoration:underline}
-    .modal-backdrop{position:fixed;inset:0;background:rgba(0,28,61,.48);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}.modal-backdrop.show{display:flex}.success-modal{width:min(390px,100%);background:#fff;border-radius:18px;padding:28px;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.25)}.success-icon{width:62px;height:62px;border-radius:50%;background:#eaf8f0;color:var(--success);display:grid;place-items:center;margin:0 auto 14px;font-size:30px;font-weight:900}.success-modal h3{margin:0;color:var(--primary-color);font-size:21px}.success-modal p{color:#6f7c8a;font-size:13px;line-height:1.5}.success-modal button{margin-top:8px}
-    @media(max-width:760px){body{padding:18px 10px}.form-container{padding:26px 20px}.brand-logo{width:58px;height:58px}.header-section{padding:0 45px}.details-card{padding:18px 14px}.desktop-table{display:none}.mobile-cards{display:block}.stats-row{flex-direction:column}.total-summary{flex-direction:column;text-align:center;gap:9px}.total-summary-label{font-size:15px}.total-summary-amount{font-size:18px}.footer{border-radius:8px}}
-    @media(max-width:480px){.header-section{padding:0 35px}.header-section h2{font-size:19px}.brand-logo{width:50px;height:50px}.details-heading h3{font-size:20px}}
-  </style>
-</head>
-<body>
-<div class="page-shell">
-<div class="form-container">
-  <div class="brand-row">
-    <img class="brand-logo" src="logo.png" alt="Lions International Logo"><a class="admin-link" href="admin.html">🔒 Admin</a>
-  <div class="header-section">
-    <h3>Lions International</h3>
-    <h4>District 325 F</h4>
-    <h2>Nepal Lions Foundation (NLF)</h2>
-    <div class="sub-title">Contribution</div>
-  </div>
-  </div>
-  <hr>
+:root {
+  --primary-color:#002d62;
+  --accent-color:#d4af37;
+  --bg-color:#f0f4f8;
+  --success:#18864b;
+  --danger:#b42318;
+}
 
-  <form id="donationForm">
-    <div class="input-group">
-      <label for="membership">Membership Number *</label>
-      <input type="text" id="membership" placeholder="Enter membership number" inputmode="numeric" required autocomplete="off">
-      <div id="memberStatus" class="member-status"></div><div id="duplicateNote" class="duplicate-note"></div>
-    </div>
+* {
+  box-sizing:border-box
+}
 
-    <div class="input-group">
-      <label for="name">Full Name *</label>
-      <input type="text" id="name" placeholder="Auto fill from membership number" required readonly>
+body {
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  margin:0;
+  padding:30px 15px;
+  background:linear-gradient(180deg,#f4f7fb 0%,var(--bg-color) 100%);
+  color:#273444
+}
+
+.page-shell {
+  max-width:980px;
+  margin:auto
+}
+
+.form-container {
+  background:#fff;
+  padding:32px 30px;
+  border-radius:18px;
+  max-width:480px;
+  margin:auto;
+  box-shadow:0 12px 34px rgba(0,45,98,.12);
+  border-top:5px solid var(--accent-color)
+}
+
+.brand-row {
+  position:relative;
+  min-height:74px
+}
+
+.admin-link {
+  position:absolute;
+  right:0;
+  top:0;
+  padding:7px 10px;
+  border:1px solid #d6dee8;
+  border-radius:999px;
+  color:var(--primary-color);
+  font-size:11px;
+  font-weight:800;
+  text-decoration:none;
+  background:#fff
+}
+
+.admin-link:hover {
+  background:#f6f9fc
+}
+
+.brand-logo {
+  position:absolute;
+  left:0;
+  top:0;
+  width:70px;
+  height:70px;
+  object-fit:contain
+}
+
+.header-section {
+  text-align:center;
+  margin-bottom:24px;
+  padding:0 58px
+}
+
+.header-section h3 {
+  margin:0;
+  color:var(--primary-color);
+  font-size:17px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  font-weight:800
+}
+
+.header-section h4 {
+  margin:5px 0 10px;
+  color:#657184;
+  font-size:14px;
+  font-weight:600
+}
+
+.header-section h2 {
+  margin:0;
+  color:var(--primary-color);
+  font-size:22px;
+  font-weight:800;
+  line-height:1.3
+}
+
+.header-section .sub-title {
+  color:var(--accent-color);
+  font-size:19px;
+  font-weight:800;
+  margin-top:3px
+}
+
+hr {
+  border:0;
+  height:1px;
+  background:linear-gradient(to right,transparent,#ccd5df,transparent);
+  margin:20px 0
+}
+
+.input-group {
+  text-align:left;
+  margin-bottom:18px
+}
+
+.input-group label {
+  display:block;
+  font-size:13px;
+  color:var(--primary-color);
+  font-weight:700;
+  margin-bottom:6px
+}
+
+input,select {
+  width:100%;
+  padding:12px 14px;
+  border:1px solid #ced8e3;
+  border-radius:9px;
+  font-size:15px;
+  background:#f9fbfd;
+  transition:.25s
+}
+
+input:focus,select:focus {
+  outline:none;
+  border-color:var(--primary-color);
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(0,45,98,.09)
+}
+
+input[readonly],select:disabled {
+  background:#eef3f7;
+  color:#4e5b69;
+  cursor:not-allowed
+}
+
+button {
+  width:100%;
+  padding:14px;
+  background:linear-gradient(135deg,#003d7d,#002d62);
+  color:#fff;
+  border:0;
+  cursor:pointer;
+  font-size:16px;
+  font-weight:700;
+  border-radius:9px;
+  margin-top:10px;
+  transition:.25s;
+  box-shadow:0 5px 14px rgba(0,45,98,.22)
+}
+
+button:hover {
+  transform:translateY(-1px);
+  box-shadow:0 7px 18px rgba(0,45,98,.28)
+}
+
+button:disabled {
+  background:#9eafc1;
+  cursor:not-allowed;
+  transform:none
+}
+
+#qr-section {
+  display:none;
+  margin:15px 0;
+  background:#fffdf3;
+  padding:15px;
+  border:2px dashed var(--accent-color);
+  border-radius:10px;
+  text-align:center
+}
+
+#qr-section img {
+  width:220px;
+  height:auto;
+  border-radius:6px;
+  margin:8px auto 0;
+  display:block;
+  box-shadow:0 4px 10px rgba(0,0,0,.05)
+}
+
+.member-status {
+  display:none;
+  margin-top:8px;
+  border-radius:8px;
+  padding:9px 11px;
+  font-size:12px;
+  font-weight:700;
+  align-items:center;
+  gap:8px
+}
+
+.member-status.searching {
+  display:flex;
+  background:#eef5ff;
+  color:#24578b
+}
+
+.member-status.ok {
+  display:flex;
+  background:#edf9f2;
+  color:var(--success);
+  border:1px solid #c9ead7
+}
+
+.member-status.error {
+  display:flex;
+  background:#fff1f0;
+  color:var(--danger);
+  border:1px solid #f3cbc7
+}
+
+.duplicate-note {
+  display:none;
+  margin-top:8px;
+  padding:10px 11px;
+  border-radius:8px;
+  background:#fff8e1;
+  border:1px solid #efd37a;
+  color:#705500;
+  font-size:12px;
+  line-height:1.45
+}
+
+.duplicate-note.show {
+  display:block
+}
+
+.status-spinner {
+  width:13px;
+  height:13px;
+  border:2px solid currentColor;
+  border-right-color:transparent;
+  border-radius:50%;
+  animation:spin .7s linear infinite
+}
+
+@keyframes spin {
+  to {
+    transform:rotate(360deg)
+  }
+
+}
+
+.details-card {
+  margin:26px auto 0;
+  max-width:900px;
+  background:#fff;
+  border-radius:18px;
+  padding:24px;
+  box-shadow:0 12px 34px rgba(0,45,98,.10);
+  border-top:4px solid var(--accent-color)
+}
+
+.details-heading {
+  text-align:center;
+  margin-bottom:18px
+}
+
+.details-heading h3 {
+  margin:0;
+  color:var(--primary-color);
+  font-size:23px;
+  font-weight:800
+}
+
+.details-heading p {
+  margin:5px 0 0;
+  color:#7b8795;
+  font-size:13px
+}
+
+.heading-accent {
+  width:64px;
+  height:3px;
+  border-radius:3px;
+  background:var(--accent-color);
+  margin:10px auto 0
+}
+
+.stats-row {
+  display:flex;
+  gap:12px;
+  margin-bottom:16px
+}
+
+.stat-box {
+  flex:1;
+  background:#f7f9fc;
+  border:1px solid #e1e7ef;
+  border-radius:12px;
+  padding:12px 15px
+}
+
+.stat-label {
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  color:#788697;
+  font-weight:700
+}
+
+.stat-value {
+  margin-top:3px;
+  color:var(--primary-color);
+  font-size:18px;
+  font-weight:800
+}
+
+.table-message {
+  text-align:center;
+  color:#777;
+  padding:20px;
+  font-size:13px
+}
+
+.table-loading {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px
+}
+
+.contribution-table {
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  font-size:14px;
+  table-layout:fixed;
+  border:1px solid #dbe3ec;
+  border-radius:10px;
+  overflow:hidden
+}
+
+.contribution-table th,.contribution-table td {
+  padding:11px 12px;
+  text-align:left;
+  vertical-align:middle;
+  border-bottom:1px solid #e3e9f0
+}
+
+.contribution-table th {
+  background:var(--primary-color);
+  color:#fff;
+  font-weight:700
+}
+
+.contribution-table tbody tr:nth-child(even) {
+  background:#f8fafc
+}
+
+.contribution-table tbody tr:hover {
+  background:#fff9e9
+}
+
+.contribution-table tbody tr:last-child td {
+  border-bottom:0
+}
+
+.contribution-table th:nth-child(1),.contribution-table td:nth-child(1) {
+  width:6%;
+  text-align:center
+}
+
+.contribution-table th:nth-child(2),.contribution-table td:nth-child(2) {
+  width:22%
+}
+
+.contribution-table th:nth-child(3),.contribution-table td:nth-child(3) {
+  width:25%
+}
+
+.contribution-table th:nth-child(4),.contribution-table td:nth-child(4) {
+  width:19%
+}
+
+.contribution-table th:nth-child(5),.contribution-table td:nth-child(5) {
+  width:13%
+}
+
+.contribution-table th:nth-child(6),.contribution-table td:nth-child(6) {
+  width:15%
+}
+
+.amount-cell {
+  font-weight:700;
+  color:var(--primary-color)
+}
+
+.payment-badge {
+  display:inline-block;
+  padding:4px 9px;
+  border-radius:999px;
+  background:#edf3f9;
+  color:var(--primary-color);
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.3px
+}
+
+.total-summary {
+  margin-top:15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:15px 18px;
+  border:1px solid #e2b31f;
+  border-radius:12px;
+  background:linear-gradient(90deg,#fffaf0,#fff3c8,#fffaf0);
+  color:var(--primary-color);
+  box-shadow:0 4px 14px rgba(212,175,55,.12)
+}
+
+.total-summary-label {
+  font-size:17px;
+  font-weight:800
+}
+
+.total-summary-amount {
+  padding:8px 16px;
+  border-radius:9px;
+  background:#f4c542;
+  color:var(--primary-color);
+  font-size:20px;
+  font-weight:900;
+  white-space:nowrap
+}
+
+.mobile-cards {
+  display:none
+}
+
+.contribution-card {
+  border:1px solid #dfe6ee;
+  border-radius:12px;
+  padding:13px;
+  margin-bottom:10px;
+  background:#fff
+}
+
+.contribution-card-head {
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start
+}
+
+.contribution-card-name {
+  font-weight:800;
+  color:var(--primary-color)
+}
+
+.contribution-card-club {
+  font-size:12px;
+  color:#6f7c8a;
+  margin-top:3px
+}
+
+.contribution-card-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:10px;
+  font-size:12px
+}
+
+.mini-label {
+  color:#84909e;
+  font-size:10px;
+  text-transform:uppercase;
+  font-weight:700
+}
+
+.mini-value {
+  font-weight:700;
+  margin-top:2px
+}
+
+.footer {
+  max-width:900px;
+  margin:18px auto 0;
+  background:var(--primary-color);
+  color:#fff;
+  padding:12px 18px;
+  border-radius:10px;
+  text-align:center;
+  font-size:13px;
+  font-weight:700
+}
+
+.footer a {
+  color:#fff;
+  text-decoration:none
+}
+
+.footer a:hover {
+  text-decoration:underline
+}
+
+.modal-backdrop {
+  position:fixed;
+  inset:0;
+  background:rgba(0,28,61,.48);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:9999
+}
+
+.modal-backdrop.show {
+  display:flex
+}
+
+.success-modal {
+  width:min(390px,100%);
+  background:#fff;
+  border-radius:18px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 24px 70px rgba(0,0,0,.25)
+}
+
+.success-icon {
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  background:#eaf8f0;
+  color:var(--success);
+  display:grid;
+  place-items:center;
+  margin:0 auto 14px;
+  font-size:30px;
+  font-weight:900
+}
+
+.success-modal h3 {
+  margin:0;
+  color:var(--primary-color);
+  font-size:21px
+}
+
+.success-modal p {
+  color:#6f7c8a;
+  font-size:13px;
+  line-height:1.5
+}
+
+.success-modal button {
+  margin-top:8px
+}
+
+@media(max-width:760px) {
+  body {
+    padding:18px 10px
+  }
+
+  .form-container {
+    padding:26px 20px
+  }
+
+  .brand-logo {
+    width:58px;
+    height:58px
+  }
+
+  .header-section {
+    padding:0 45px
+  }
+
+  .details-card {
+    padding:18px 14px
+  }
+
+  .desktop-table {
+    display:none
+  }
+
+  .mobile-cards {
+    display:block
+  }
+
+  .stats-row {
+    flex-direction:column
+  }
+
+  .total-summary {
+    flex-direction:column;
+    text-align:center;
+    gap:9px
+  }
+
+  .total-summary-label {
+    font-size:15px
+  }
+
+  .total-summary-amount {
+    font-size:18px
+  }
+
+  .footer {
+    border-radius:8px
+  }
+
+}
+
+@media(max-width:480px) {
+  .header-section {
+    padding:0 35px
+  }
+
+  .header-section h2 {
+    font-size:19px
+  }
+
+  .brand-logo {
+    width:50px;
+    height:50px
+  }
+
+  .details-heading h3 {
+    font-size:20px
+  }
+
+}
+</style>
+ </head>
+ <body>
+  <div class="page-shell">
+   <div class="form-container">
+    <div class="brand-row">
+     <img alt="Lions International Logo" class="brand-logo" src="logo.png"/>
+     <a class="admin-link" href="admin.html">
+      🔒 Admin
+     </a>
+     <div class="header-section">
+      <h3>
+       Lions International
+      </h3>
+      <h4>
+       District 325 F
+      </h4>
+      <h2>
+       Nepal Lions Foundation (NLF)
+      </h2>
+      <div class="sub-title">
+       Contribution
+      </div>
+     </div>
     </div>
-    <div class="input-group">
-      <label for="clubList">Club Name *</label>
-      <select id="clubList" required disabled>
-        <option value="">-- Auto Fill Club Name --</option>
+    <hr/>
+    <form id="donationForm">
+     <div class="input-group">
+      <label for="membership">
+       Membership Number *
+      </label>
+      <input autocomplete="off" id="membership" inputmode="numeric" placeholder="Enter membership number" required="" type="text"/>
+      <div class="member-status" id="memberStatus">
+      </div>
+      <div class="duplicate-note" id="duplicateNote">
+      </div>
+     </div>
+     <div class="input-group">
+      <label for="name">
+       Full Name *
+      </label>
+      <input id="name" placeholder="Auto fill from membership number" readonly="" required="" type="text"/>
+     </div>
+     <div class="input-group">
+      <label for="clubList">
+       Club Name *
+      </label>
+      <select disabled="" id="clubList" required="">
+       <option value="">
+        -- Auto Fill Club Name --
+       </option>
       </select>
-    </div>
-    <div class="input-group">
-      <label for="contact">Contact Number *</label>
-      <input type="tel" id="contact" placeholder="Auto fill from membership number" required readonly>
-    </div>
-    <div class="input-group">
-      <label for="amount">Donation Amount (Rs.) *</label>
-      <input type="text" id="amount" placeholder="Enter donation amount" required>
-    </div>
-    <div class="input-group">
-      <label for="paymentType">Payment Type *</label>
-      <select id="paymentType" onchange="toggleQR(this.value)" required>
-        <option value="">-- Select Payment Type --</option>
-        <option value="Cash">Cash</option>
-        <option value="Cheque">Cheque</option>
-        <option value="QR">QR</option>
+     </div>
+     <div class="input-group">
+      <label for="contact">
+       Contact Number *
+      </label>
+      <input id="contact" placeholder="Auto fill from membership number" readonly="" required="" type="tel"/>
+     </div>
+     <div class="input-group">
+      <label for="amount">
+       Donation Amount (Rs.) *
+      </label>
+      <input id="amount" placeholder="Enter donation amount" required="" type="text"/>
+     </div>
+     <div class="input-group">
+      <label for="paymentType">
+       Payment Type *
+      </label>
+      <select id="paymentType" onchange="toggleQR(this.value)" required="">
+       <option value="">
+        -- Select Payment Type --
+       </option>
+       <option value="Cash">
+        Cash
+       </option>
+       <option value="Cheque">
+        Cheque
+       </option>
+       <option value="QR">
+        QR
+       </option>
       </select>
+     </div>
+     <div id="qr-section">
+      <p style="margin:0; font-size:14px; color:#666; font-weight: 600;">
+       Scan QR Code to Make Payment:
+      </p>
+      <img alt="QR Code" onerror="this.src='https://placehold.co/220?text=NLF+QR+Photo'" src="NLF-QR.jpg"/>
+     </div>
+     <button id="submitBtn" type="submit">
+      Submit & Send Message
+     </button>
+    </form>
+   </div>
+   <div class="details-card">
+    <div class="details-heading">
+     <h3>
+      Contribution Details
+     </h3>
+     <p>
+      NLF Contribution Records
+     </p>
+     <div class="heading-accent">
+     </div>
     </div>
-    <div id="qr-section">
-      <p style="margin:0; font-size:14px; color:#666; font-weight: 600;">Scan QR Code to Make Payment:</p>
-      <img src="NLF-QR.jpg" alt="QR Code" onerror="this.src='https://placehold.co/220?text=NLF+QR+Photo'">
+    <div class="table-message table-loading" id="tableWrap">
+     <span class="status-spinner">
+     </span>
+     <span>
+      Loading contribution data...
+     </span>
     </div>
-    <button type="submit" id="submitBtn">Submit & Send Message</button>
-  </form>
-
-</div>
-
-<div class="details-card">
-  <div class="details-heading">
-    <h3>Contribution Details</h3>
-    <p>NLF Contribution Records</p>
-    <div class="heading-accent"></div>
+   </div>
+   <div class="footer">
+    Designed by: Nirajan Aryal  |
+    <a href="tel:+9779851113811">
+     Mobile: 9851113811
+    </a>
+   </div>
   </div>
-  <div id="tableWrap" class="table-message table-loading"><span class="status-spinner"></span><span>Loading contribution data...</span></div>
-</div>
-
-<div class="footer">Designed by: Nirajan Aryal &nbsp;|&nbsp; <a href="tel:+9779851113811">Mobile: 9851113811</a></div>
-</div>
-
-<div id="successModal" class="modal-backdrop" role="dialog" aria-modal="true">
-  <div class="success-modal">
-    <div class="success-icon">✓</div>
-    <h3>Contribution Saved Successfully</h3>
-    <p>Your contribution details have been saved. WhatsApp is opening for the payment voucher message.</p><div id="receiptInfo" style="margin:12px 0;padding:10px;border-radius:10px;background:#f5f8fb;color:#002d62;font-weight:800"></div>
-    <button type="button" onclick="closeSuccessModal()">OK</button>
+  <div aria-modal="true" class="modal-backdrop" id="successModal" role="dialog">
+   <div class="success-modal">
+    <div class="success-icon">
+     ✓
+    </div>
+    <h3>
+     Contribution Saved Successfully
+    </h3>
+    <p>
+     Your contribution details have been saved. WhatsApp is opening for the payment voucher message.
+    </p>
+    <div id="receiptInfo" style="margin:12px 0;padding:10px;border-radius:10px;background:#f5f8fb;color:#002d62;font-weight:800">
+    </div>
+    <button onclick="closeSuccessModal()" type="button">
+     OK
+    </button>
+   </div>
   </div>
-</div>
-<script>
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2smDxtGmgD5WvHIZS4ohE2uMtXvblkfl0FNptzDHkWQjPfnFjkBT_T0jttpnjfQv-/exec";
-  let memberVerified = false;
-  let lookupTimer = null;
-  let lookupRequestId = 0;
-  let verifiedMembership = "";
-
-  window.onload = function() {
-    loadClubs();
-    loadContributions();
-  };
-
-  function loadClubs() {
-    fetch(WEB_APP_URL)
-      .then(response => response.json())
-      .then(clubs => {
-        const select = document.getElementById("clubList");
-        select.innerHTML = '<option value="">-- Auto Fill Club Name --</option>';
-        clubs.forEach(name => {
-          let opt = document.createElement("option");
-          opt.value = name;
-          opt.textContent = name;
-          select.appendChild(opt);
-        });
-      })
-      .catch(err => console.error("Club loading error:", err));
-  }
-
-  document.getElementById("membership").addEventListener("input", function() {
-    clearTimeout(lookupTimer);
-    const membership = this.value.trim();
-    lookupRequestId++;
-
-    if (!membership) {
-      clearMember();
-      setMemberStatus("", "");
-      return;
-    }
-
-    if (memberVerified && membership === verifiedMembership) return;
-
-    clearMember();
-    setMemberStatus("Verifying Membership...", "searching");
-    const requestId = lookupRequestId;
-    lookupTimer = setTimeout(() => lookupMember(membership, requestId), 450);
-  });
-
-  function lookupMember(membership, requestId) {
-    fetch(WEB_APP_URL + "?action=member&membership=" + encodeURIComponent(membership))
-      .then(response => response.json())
-      .then(res => {
-        const currentMembership = document.getElementById("membership").value.trim();
-        if (requestId !== lookupRequestId || membership !== currentMembership) return;
-
-        if (!res || !res.found) {
-          clearMember();
-          setMemberStatus("Membership Number not found", "error");
-          return;
-        }
-        document.getElementById("name").value = res.name || "";
-        document.getElementById("contact").value = res.contact || "";
-        const clubSelect = document.getElementById("clubList");
-        if (res.club && !Array.from(clubSelect.options).some(o => o.value === res.club)) {
-          const opt = document.createElement("option");
-          opt.value = res.club;
-          opt.textContent = res.club;
-          clubSelect.appendChild(opt);
-        }
-        clubSelect.value = res.club || "";
-        memberVerified = !!(res.name && res.club && res.contact);
-        verifiedMembership = memberVerified ? membership : "";
-        setMemberStatus(memberVerified ? "✓ Member Verified — " + (res.name || "") : "Member data is incomplete", memberVerified ? "ok" : "error");
-        if (memberVerified) checkDuplicate(membership);
-      })
-      .catch(err => {
-        const currentMembership = document.getElementById("membership").value.trim();
-        if (requestId !== lookupRequestId || membership !== currentMembership) return;
-        clearMember();
-        setMemberStatus("Unable to verify membership number", "error");
-        console.error(err);
-      });
-  }
-
-  function checkDuplicate(membership) {
-    const note = document.getElementById("duplicateNote");
-    fetch(WEB_APP_URL + "?action=duplicate&membership=" + encodeURIComponent(membership))
-      .then(r => r.json()).then(res => {
-        if (document.getElementById("membership").value.trim() !== membership) return;
-        if (res && res.found) {
-          note.classList.add("show");
-          note.innerHTML = "⚠ Previous Contribution Found: <b>" + res.count + "</b> record(s), total <b>Rs. " + Number(res.total || 0).toLocaleString("en-IN") + "</b>. You may still submit another contribution.";
-        } else { note.classList.remove("show"); note.textContent = ""; }
-      }).catch(() => { note.classList.remove("show"); });
-  }
-
-  function clearMember() {
-    memberVerified = false;
-    verifiedMembership = "";
-    document.getElementById("name").value = "";
-    document.getElementById("contact").value = "";
-    document.getElementById("clubList").value = "";
-    const note = document.getElementById("duplicateNote"); if (note) { note.classList.remove("show"); note.textContent = ""; }
-  }
-
-  function setMemberStatus(message, type) {
-    const el = document.getElementById("memberStatus");
-    el.className = "member-status" + (type ? " " + type : "");
-    if (type === "searching") el.innerHTML = '<span class="status-spinner"></span><span>' + esc(message) + '</span>';
-    else el.textContent = message;
-    if (!type && message) el.style.display = "block";
-    else el.style.display = "";
-  }
-
-  function toggleQR(val) {
-    document.getElementById("qr-section").style.display = (val === "QR") ? "block" : "none";
-  }
-
-  function renderContributions(rows) {
-    const wrap = document.getElementById("tableWrap");
-    if (!Array.isArray(rows) || rows.length === 0) {
-      wrap.className = "table-message";
-      wrap.textContent = "No contribution data found.";
-      return;
-    }
-    let totalAmount = 0, desktopRows = '', mobileCards = '';
-    rows.forEach((r, index) => {
-      const numericAmount = Number(String(r.amount == null ? '' : r.amount).replace(/[^0-9.-]/g, ''));
-      if (Number.isFinite(numericAmount)) totalAmount += numericAmount;
-      const formattedAmount = Number.isFinite(numericAmount) ? numericAmount.toLocaleString('en-IN') : esc(r.amount);
-      desktopRows += '<tr><td>' + (index + 1) + '</td><td>' + esc(r.name) + '</td><td>' + esc(r.club) + '</td><td>' + esc(r.contact) + '</td><td class="amount-cell">Rs. ' + formattedAmount + '</td><td><span class="payment-badge">' + esc(r.payment) + '</span></td></tr>';
-      mobileCards += '<div class="contribution-card"><div class="contribution-card-head"><div><div class="contribution-card-name">' + esc(r.name) + '</div><div class="contribution-card-club">' + esc(r.club) + '</div></div><span class="payment-badge">' + esc(r.payment) + '</span></div><div class="contribution-card-grid"><div><div class="mini-label">Contact</div><div class="mini-value">' + esc(r.contact) + '</div></div><div><div class="mini-label">Amount</div><div class="mini-value">Rs. ' + formattedAmount + '</div></div></div></div>';
+  <script>
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2smDxtGmgD5WvHIZS4ohE2uMtXvblkfl0FNptzDHkWQjPfnFjkBT_T0jttpnjfQv-/exec";
+let memberVerified = false;
+let lookupTimer = null;
+let lookupRequestId = 0;
+let verifiedMembership = "";
+window.onload = function() {
+  loadClubs();
+  loadContributions();
+};
+function loadClubs() {
+  fetch(WEB_APP_URL) .then(response => response.json()) .then(clubs => {
+    const select = document.getElementById("clubList"); select.innerHTML = '<option value="">-- Auto Fill Club Name --</option>'; clubs.forEach(name => {
+      let opt = document.createElement("option"); opt.value = name; opt.textContent = name; select.appendChild(opt);
     });
-    wrap.className = "";
-    wrap.innerHTML = '<div class="stats-row"><div class="stat-box"><div class="stat-label">Total Contributors</div><div class="stat-value">' + rows.length.toLocaleString('en-IN') + '</div></div><div class="stat-box"><div class="stat-label">Total Contribution</div><div class="stat-value">Rs. ' + totalAmount.toLocaleString('en-IN') + '</div></div></div>' +
-      '<div class="desktop-table"><table class="contribution-table"><thead><tr><th>S.N.</th><th>Name</th><th>Club Name</th><th>Contact</th><th>Amount</th><th>Payment Type</th></tr></thead><tbody>' + desktopRows + '</tbody></table></div>' +
-      '<div class="mobile-cards">' + mobileCards + '</div>' +
-      '<div class="total-summary"><div class="total-summary-label">NLF Total Contribution</div><div class="total-summary-amount">Rs. ' + totalAmount.toLocaleString('en-IN') + '</div></div>';
+  }) .catch(err => console.error("Club loading error:", err));
+}
+document.getElementById("membership").addEventListener("input", function() {
+  clearTimeout(lookupTimer); const membership = this.value.trim(); lookupRequestId++; if (!membership) {
+    clearMember(); setMemberStatus("", ""); return;
   }
-
-  function loadContributions(forceRefresh) {
-    const wrap = document.getElementById("tableWrap");
-    if (!forceRefresh) {
+  if (memberVerified && membership === verifiedMembership) return; clearMember(); setMemberStatus("Verifying Membership...", "searching"); const requestId = lookupRequestId; lookupTimer = setTimeout(() => lookupMember(membership, requestId), 450);
+});
+function lookupMember(membership, requestId) {
+  fetch(WEB_APP_URL + "?action=member&membership=" + encodeURIComponent(membership)) .then(response => response.json()) .then(res => {
+    const currentMembership = document.getElementById("membership").value.trim(); if (requestId !== lookupRequestId || membership !== currentMembership) return; if (!res || !res.found) {
+      clearMember(); setMemberStatus("Membership Number not found", "error"); return;
+    }
+    document.getElementById("name").value = res.name || ""; document.getElementById("contact").value = res.contact || ""; const clubSelect = document.getElementById("clubList"); if (res.club && !Array.from(clubSelect.options).some(o => o.value === res.club)) {
+      const opt = document.createElement("option"); opt.value = res.club; opt.textContent = res.club; clubSelect.appendChild(opt);
+    }
+    clubSelect.value = res.club || ""; memberVerified = !!(res.name && res.club && res.contact); verifiedMembership = memberVerified ? membership : ""; setMemberStatus(memberVerified ? "✓ Member Verified — " + (res.name || "") : "Member data is incomplete", memberVerified ? "ok" : "error"); if (memberVerified) checkDuplicate(membership);
+  }) .catch(err => {
+    const currentMembership = document.getElementById("membership").value.trim(); if (requestId !== lookupRequestId || membership !== currentMembership) return; clearMember(); setMemberStatus("Unable to verify membership number", "error"); console.error(err);
+  });
+}
+function checkDuplicate(membership) {
+  const note = document.getElementById("duplicateNote");
+  fetch(WEB_APP_URL + "?action=duplicate&membership=" + encodeURIComponent(membership)) .then(r => r.json()).then(res => {
+    if (document.getElementById("membership").value.trim() !== membership) return; if (res && res.found) {
+      note.classList.add("show"); note.innerHTML = "⚠ Previous Contribution Found: <b>" + res.count + "</b> record(s), total <b>Rs. " + Number(res.total || 0).toLocaleString("en-IN") + "</b>. You may still submit another contribution.";
+    } else {
+      note.classList.remove("show"); note.textContent = "";
+    }
+  }).catch(() => {
+    note.classList.remove("show");
+  });
+}
+function clearMember() {
+  memberVerified = false;
+  verifiedMembership = "";
+  document.getElementById("name").value = "";
+  document.getElementById("contact").value = "";
+  document.getElementById("clubList").value = "";
+  const note = document.getElementById("duplicateNote");
+  if (note) {
+    note.classList.remove("show");
+    note.textContent = "";
+  }
+}
+function setMemberStatus(message, type) {
+  const el = document.getElementById("memberStatus");
+  el.className = "member-status" + (type ? " " + type : "");
+  if (type === "searching") el.innerHTML = '<span class="status-spinner"></span><span>' + esc(message) + '</span>';
+  else el.textContent = message;
+  if (!type && message) el.style.display = "block";
+  else el.style.display = "";
+}
+function toggleQR(val) {
+  document.getElementById("qr-section").style.display = (val === "QR") ? "block" : "none";
+}
+function renderContributions(rows) {
+  const wrap = document.getElementById("tableWrap");
+  if (!Array.isArray(rows) || rows.length === 0) {
+    wrap.className = "table-message";
+    wrap.textContent = "No contribution data found.";
+    return;
+  }
+  let totalAmount = 0,
+  desktopRows = '',
+  mobileCards = '';
+  rows.forEach((r, index) => {
+    const numericAmount = Number(String(r.amount == null ? '' : r.amount).replace(/[^0-9.-]/g, '')); if (Number.isFinite(numericAmount)) totalAmount += numericAmount; const formattedAmount = Number.isFinite(numericAmount) ? numericAmount.toLocaleString('en-IN') : esc(r.amount); desktopRows += '<tr><td>' + (index + 1) + '</td><td>' + esc(r.name) + '</td><td>' + esc(r.club) + '</td><td>' + esc(r.contact) + '</td><td class="amount-cell">Rs. ' + formattedAmount + '</td><td><span class="payment-badge">' + esc(r.payment) + '</span></td></tr>'; mobileCards += '<div class="contribution-card"><div class="contribution-card-head"><div><div class="contribution-card-name">' + esc(r.name) + '</div><div class="contribution-card-club">' + esc(r.club) + '</div></div><span class="payment-badge">' + esc(r.payment) + '</span></div><div class="contribution-card-grid"><div><div class="mini-label">Contact</div><div class="mini-value">' + esc(r.contact) + '</div></div><div><div class="mini-label">Amount</div><div class="mini-value">Rs. ' + formattedAmount + '</div></div></div></div>';
+  });
+  wrap.className = "";
+  wrap.innerHTML = '<div class="stats-row"><div class="stat-box"><div class="stat-label">Total Contributors</div><div class="stat-value">' + rows.length.toLocaleString('en-IN') + '</div></div><div class="stat-box"><div class="stat-label">Total Contribution</div><div class="stat-value">Rs. ' + totalAmount.toLocaleString('en-IN') + '</div></div></div>' + '<div class="desktop-table"><table class="contribution-table"><thead><tr><th>S.N.</th><th>Name</th><th>Club Name</th><th>Contact</th><th>Amount</th><th>Payment Type</th></tr></thead><tbody>' + desktopRows + '</tbody></table></div>' + '<div class="mobile-cards">' + mobileCards + '</div>' + '<div class="total-summary"><div class="total-summary-label">NLF Total Contribution</div><div class="total-summary-amount">Rs. ' + totalAmount.toLocaleString('en-IN') + '</div></div>';
+}
+function loadContributions(forceRefresh) {
+  const wrap = document.getElementById("tableWrap");
+  if (!forceRefresh) {
+    try {
+      const cached = JSON.parse(localStorage.getItem("NLF_PUBLIC_CONTRIBUTIONS") || "null");
+      if (Array.isArray(cached) && cached.length) renderContributions(cached);
+    } catch (_) {
+    }
+  }
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
+  fetch(WEB_APP_URL + "?action=contributions&_=" + Date.now(), {
+    signal: controller.signal, cache: "no-store"
+  }) .then(response => response.json()) .then(rows => {
+    clearTimeout(timer); if (Array.isArray(rows)) {
       try {
-        const cached = JSON.parse(localStorage.getItem("NLF_PUBLIC_CONTRIBUTIONS") || "null");
-        if (Array.isArray(cached) && cached.length) renderContributions(cached);
-      } catch (_) {}
+        localStorage.setItem("NLF_PUBLIC_CONTRIBUTIONS", JSON.stringify(rows));
+      } catch (_) {
+      }
+      renderContributions(rows);
+    } else throw new Error("Invalid contribution response");
+  }) .catch(err => {
+    clearTimeout(timer); if (!wrap.querySelector("table") && !wrap.querySelector(".contribution-card")) {
+      wrap.className = "table-message"; wrap.innerHTML = 'Contribution data loading took longer than expected. <button type="button" style="width:auto;margin-left:8px;padding:7px 12px" onclick="loadContributions(true)">Retry</button>';
     }
-
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 8000);
-    fetch(WEB_APP_URL + "?action=contributions&_=" + Date.now(), { signal: controller.signal, cache: "no-store" })
-      .then(response => response.json())
-      .then(rows => {
-        clearTimeout(timer);
-        if (Array.isArray(rows)) {
-          try { localStorage.setItem("NLF_PUBLIC_CONTRIBUTIONS", JSON.stringify(rows)); } catch (_) {}
-          renderContributions(rows);
-        } else throw new Error("Invalid contribution response");
-      })
-      .catch(err => {
-        clearTimeout(timer);
-        if (!wrap.querySelector("table") && !wrap.querySelector(".contribution-card")) {
-          wrap.className = "table-message";
-          wrap.innerHTML = 'Contribution data loading took longer than expected. <button type="button" style="width:auto;margin-left:8px;padding:7px 12px" onclick="loadContributions(true)">Retry</button>';
-        }
-        console.error(err);
-      });
+    console.error(err);
+  });
+}
+function showSuccessModal() {
+  document.getElementById("successModal").classList.add("show");
+}
+function closeSuccessModal() {
+  document.getElementById("successModal").classList.remove("show");
+}
+function esc(value) {
+  return String(value == null ? "" : value) .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") .replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+}
+document.getElementById("donationForm").onsubmit = function(e) {
+  e.preventDefault();
+  if (!memberVerified) {
+    alert("Please enter a valid Membership Number first.");
+    document.getElementById("membership").focus();
+    return;
   }
-
-
-  function showSuccessModal() {
-    document.getElementById("successModal").classList.add("show");
-  }
-
-  function closeSuccessModal() {
-    document.getElementById("successModal").classList.remove("show");
-  }
-
-  function esc(value) {
-    return String(value == null ? "" : value)
-      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-  }
-
-  document.getElementById("donationForm").onsubmit = function(e) {
-    e.preventDefault();
-    if (!memberVerified) {
-      alert("Please enter a valid Membership Number first.");
-      document.getElementById("membership").focus();
-      return;
-    }
-    const btn = document.getElementById("submitBtn");
-    btn.disabled = true;
-    btn.innerText = "Processing Please Wait...";
-    const formData = {
-      name: document.getElementById("name").value,
-      club: document.getElementById("clubList").value,
-      contact: document.getElementById("contact").value,
-      amount: document.getElementById("amount").value,
-      payment: document.getElementById("paymentType").value,
-      membership: document.getElementById("membership").value.trim()
-    };
-    fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify(formData) })
-      .then(response => response.json())
-      .then(res => {
-        if (!res || res.status !== "success") throw new Error(res && res.message ? res.message : "Save failed");
-        var message = `नमस्ते लायन भुवन नेपाल ज्यू,%0A%0ANepal Lions Foundation (NLF) को लागि मेरो Donation विवरण यस प्रकार छ:%0A%0A` +
-          `नाम: ${encodeURIComponent(formData.name)}%0A` +
-          `क्लबको नाम: ${encodeURIComponent(formData.club)}%0A` +
-          `सम्पर्क नम्बर: ${encodeURIComponent(formData.contact)}%0A` +
-          `रकम: ${encodeURIComponent(formData.amount)}%0A` +
-          `भुक्तानीको प्रकार: ${encodeURIComponent(formData.payment)}%0A%0A` +
-          `मैले भुक्तानी भौचरको फोटो यसै साथ संलग्न गरेको छु ।`;
-        var whatsappUrl = "https://api.whatsapp.com/send?phone=9779851003853&text=" + message;
-        window.open(whatsappUrl, '_blank');
-        document.getElementById("donationForm").reset();
-        clearMember();
-        setMemberStatus("", "");
-        toggleQR("");
-        loadContributions();
-        document.getElementById("receiptInfo").textContent = "Receipt / Reference No.: " + (res.receipt || "-") + "  •  Status: " + (res.paymentStatus || "Pending");
-        showSuccessModal();
-      })
-      .catch(err => {
-        alert("जडानमा समस्या आयो, कृपया पुन: प्रयास गर्नुहोस् ।");
-        console.error(err);
-      })
-      .finally(() => {
-        btn.disabled = false;
-        btn.innerText = "Submit & Send Message";
-      });
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  btn.innerText = "Processing Please Wait...";
+  const formData = {
+    name: document.getElementById("name").value,
+    club: document.getElementById("clubList").value,
+    contact: document.getElementById("contact").value,
+    amount: document.getElementById("amount").value,
+    payment: document.getElementById("paymentType").value,
+    membership: document.getElementById("membership").value.trim()
   };
+  fetch(WEB_APP_URL, {
+    method: "POST", body: JSON.stringify(formData)
+  }) .then(response => response.json()) .then(res => {
+    if (!res || res.status !== "success") throw new Error(res && res.message ? res.message : "Save failed"); var message = `नमस्ते लायन भुवन नेपाल ज्यू,%0A%0ANepal Lions Foundation (NLF) को लागि मेरो Donation विवरण यस प्रकार छ:%0A%0A` + `नाम: ${encodeURIComponent(formData.name)}%0A` + `क्लबको नाम: ${encodeURIComponent(formData.club)}%0A` + `सम्पर्क नम्बर: ${encodeURIComponent(formData.contact)}%0A` + `रकम: ${encodeURIComponent(formData.amount)}%0A` + `भुक्तानीको प्रकार: ${encodeURIComponent(formData.payment)}%0A%0A` + `मैले भुक्तानी भौचरको फोटो यसै साथ संलग्न गरेको छु ।`; var whatsappUrl = "https://api.whatsapp.com/send?phone=9779851003853&text=" + message; window.open(whatsappUrl, '_blank'); document.getElementById("donationForm").reset(); clearMember(); setMemberStatus("", ""); toggleQR(""); loadContributions(); document.getElementById("receiptInfo").textContent = "Receipt / Reference No.: " + (res.receipt || "-") + "  •  Status: " + (res.paymentStatus || "Pending"); showSuccessModal();
+  }) .catch(err => {
+    alert("जडानमा समस्या आयो, कृपया पुन: प्रयास गर्नुहोस् ।"); console.error(err);
+  }) .finally(() => {
+    btn.disabled = false; btn.innerText = "Submit & Send Message";
+  });
+};
 </script>
-</body>
+ </body>
 </html>
