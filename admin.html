@@ -1,3 +1,6 @@
+<!-- ============================================================
+     NLF ADMIN PANEL - UNIVERSAL EDITABLE VERSION
+     ============================================================ -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,64 +8,1141 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NLF Admin</title>
 <style>
-:root{--navy:#003b6f;--teal:#0b5e75;--gold:#d4a928;--bg:#eef3f7;--green:#198754;--red:#c0392b;--muted:#687789}*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:#233}.wrap{max-width:1180px;margin:auto;padding:22px}.card{background:#fff;border-radius:16px;box-shadow:0 10px 28px #003b6f18;padding:22px;margin-bottom:18px}.login{max-width:420px;margin:8vh auto}.brand{text-align:center}.brand img{width:72px}.brand h1{color:var(--navy);margin:8px 0 0}.brand p{margin:5px;color:var(--muted)}label{font-size:12px;font-weight:700;color:var(--navy);display:block;margin:12px 0 5px}input,select,button{width:100%;padding:11px 12px;border:1px solid #ccd6e0;border-radius:8px;font-size:14px}button{background:var(--navy);color:#fff;border:0;font-weight:700;cursor:pointer}button:disabled{opacity:.6;cursor:not-allowed}.secondary{background:#fff;color:var(--navy);border:1px solid #b9c8d7}.top{display:flex;justify-content:space-between;gap:12px;align-items:center}.top .brandline{display:flex;align-items:center;gap:12px}.top img{width:52px}.actions{display:flex;gap:8px}.actions button{width:auto}.filters{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:end}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{padding:15px;border-radius:12px;background:#f7fafc;border-left:4px solid var(--gold)}.stat b{display:block;font-size:22px;color:var(--navy);margin-top:4px}.tablebox{overflow:auto}table{width:100%;border-collapse:collapse;font-size:12px}th{background:var(--teal);color:#fff;padding:10px;text-align:left;white-space:nowrap}td{padding:9px;border-bottom:1px solid #e5ebf0;white-space:nowrap}.badge{padding:4px 8px;border-radius:999px;font-weight:700}.pending{background:#fff3cd;color:#7a5a00}.verified{background:#dff5e8;color:#126b3a}.smallbtn{width:auto;padding:6px 9px;font-size:11px}.editbtn{background:#52697f}.usergrid{display:grid;grid-template-columns:2fr 2fr 1fr auto;gap:8px;align-items:end}.hidden{display:none!important}.msg{min-height:20px;margin:10px 0 0;font-size:13px;font-weight:600}.error{color:var(--red)}.success{color:var(--green)}.homeLink{display:block;text-align:center;margin-top:14px;color:var(--navy);font-weight:700;text-decoration:none}.modal{position:fixed;inset:0;background:#001b33aa;display:flex;align-items:center;justify-content:center;padding:18px;z-index:50}.modalCard{width:min(520px,100%);background:#fff;border-radius:16px;padding:22px;box-shadow:0 20px 60px #0004}.modalActions{display:flex;gap:8px;margin-top:16px}.modalActions button{flex:1}.preview{width:min(1100px,96vw);height:90vh;overflow:auto}.reportSheet{background:#fff;padding:28px;color:#223}.reportHead{text-align:center;border-bottom:2px solid var(--gold);padding-bottom:14px;margin-bottom:14px}.reportHead img{width:58px;float:left}.reportHead h1{font-size:22px;color:var(--navy);margin:0}.reportHead h2{font-size:15px;color:var(--navy);margin:5px}.reportHead h3{font-size:17px;color:#9b7400;margin:5px}.reportMeta{display:flex;justify-content:space-between;gap:10px;font-size:12px;margin:12px 0}.reportTable{font-size:10px}.reportTable th{background:var(--navy)}.reportTotal{margin-top:15px;padding:12px;background:#fff8df;border-left:4px solid var(--gold);font-weight:700;color:var(--navy)}.reportFooter{text-align:center;margin-top:24px;font-size:11px;color:#667}.editGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.editGrid .wide{grid-column:1/-1}@media(max-width:760px){.filters,.stats{grid-template-columns:1fr 1fr}.top{align-items:flex-start;flex-direction:column}.actions{flex-wrap:wrap}.usergrid,.editGrid{grid-template-columns:1fr}.wrap{padding:10px}.reportMeta{display:block}.reportHead img{float:none;margin-bottom:8px}}
+:root{
+--navy:#003b6f;
+--teal:#0b5e75;
+--gold:#d4a928;
+--bg:#eef3f7;
+--green:#198754;
+--red:#c0392b;
+--muted:#687789}
+*{
+box-sizing:border-box}
+body{
+margin:0;
+font-family:Segoe UI,Arial,sans-serif;
+background:var(--bg);
+color:#233}
+.wrap{
+max-width:1180px;
+margin:auto;
+padding:22px}
+.card{
+background:#fff;
+border-radius:16px;
+box-shadow:0 10px 28px #003b6f18;
+padding:22px;
+margin-bottom:18px}
+.login{
+max-width:420px;
+margin:8vh auto}
+.brand{
+text-align:center}
+.brand img{
+width:72px}
+.brand h1{
+color:var(--navy);
+margin:8px 0 0}
+.brand p{
+margin:5px;
+color:var(--muted)}
+label{
+font-size:12px;
+font-weight:700;
+color:var(--navy);
+display:block;
+margin:12px 0 5px}
+input,select,button{
+width:100%;
+padding:11px 12px;
+border:1px solid #ccd6e0;
+border-radius:8px;
+font-size:14px}
+button{
+background:var(--navy);
+color:#fff;
+border:0;
+font-weight:700;
+cursor:pointer}
+button:disabled{
+opacity:.6;
+cursor:not-allowed}
+.secondary{
+background:#fff;
+color:var(--navy);
+border:1px solid #b9c8d7}
+.top{
+display:flex;
+justify-content:space-between;
+gap:12px;
+align-items:center}
+.top .brandline{
+display:flex;
+align-items:center;
+gap:12px}
+.top img{
+width:52px}
+.actions{
+display:flex;
+gap:8px}
+.actions button{
+width:auto}
+.filters{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:10px;
+align-items:end}
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px}
+.stat{
+padding:15px;
+border-radius:12px;
+background:#f7fafc;
+border-left:4px solid var(--gold)}
+.stat b{
+display:block;
+font-size:22px;
+color:var(--navy);
+margin-top:4px}
+.tablebox{
+overflow:auto}
+table{
+width:100%;
+border-collapse:collapse;
+font-size:12px}
+th{
+background:var(--teal);
+color:#fff;
+padding:10px;
+text-align:left;
+white-space:nowrap}
+td{
+padding:9px;
+border-bottom:1px solid #e5ebf0;
+white-space:nowrap}
+.badge{
+padding:4px 8px;
+border-radius:999px;
+font-weight:700}
+.pending{
+background:#fff3cd;
+color:#7a5a00}
+.verified{
+background:#dff5e8;
+color:#126b3a}
+.smallbtn{
+width:auto;
+padding:6px 9px;
+font-size:11px}
+.editbtn{
+background:#52697f}
+.usergrid{
+display:grid;
+grid-template-columns:2fr 2fr 1fr auto;
+gap:8px;
+align-items:end}
+.hidden{
+display:none!important}
+.msg{
+min-height:20px;
+margin:10px 0 0;
+font-size:13px;
+font-weight:600}
+.error{
+color:var(--red)}
+.success{
+color:var(--green)}
+.homeLink{
+display:block;
+text-align:center;
+margin-top:14px;
+color:var(--navy);
+font-weight:700;
+text-decoration:none}
+.modal{
+position:fixed;
+inset:0;
+background:#001b33aa;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:18px;
+z-index:50}
+.modalCard{
+width:min(520px,100%);
+background:#fff;
+border-radius:16px;
+padding:22px;
+box-shadow:0 20px 60px #0004}
+.modalActions{
+display:flex;
+gap:8px;
+margin-top:16px}
+.modalActions button{
+flex:1}
+.preview{
+width:min(1100px,96vw);
+height:90vh;
+overflow:auto}
+.reportSheet{
+background:#fff;
+padding:28px;
+color:#223}
+.reportHead{
+text-align:center;
+border-bottom:2px solid var(--gold);
+padding-bottom:14px;
+margin-bottom:14px}
+.reportHead img{
+width:58px;
+float:left}
+.reportHead h1{
+font-size:22px;
+color:var(--navy);
+margin:0}
+.reportHead h2{
+font-size:15px;
+color:var(--navy);
+margin:5px}
+.reportHead h3{
+font-size:17px;
+color:#9b7400;
+margin:5px}
+.reportMeta{
+display:flex;
+justify-content:space-between;
+gap:10px;
+font-size:12px;
+margin:12px 0}
+.reportTable{
+font-size:10px}
+.reportTable th{
+background:var(--navy)}
+.reportTotal{
+margin-top:15px;
+padding:12px;
+background:#fff8df;
+border-left:4px solid var(--gold);
+font-weight:700;
+color:var(--navy)}
+.reportFooter{
+text-align:center;
+margin-top:24px;
+font-size:11px;
+color:#667}
+.editGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px}
+.editGrid .wide{
+grid-column:1/-1}
+@media(max-width:760px){
+.filters,.stats{
+grid-template-columns:1fr 1fr}
+.top{
+align-items:flex-start;
+flex-direction:column}
+.actions{
+flex-wrap:wrap}
+.usergrid,.editGrid{
+grid-template-columns:1fr}
+.wrap{
+padding:10px}
+.reportMeta{
+display:block}
+.reportHead img{
+float:none;
+margin-bottom:8px}
+}
 </style>
+  <!-- PDF Engine: client-side text PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js">
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js">
+</script>
 </head>
 <body>
 <div class="wrap">
   <div id="loginCard" class="card login">
-    <div class="brand"><img src="logo.png"><h1>NLF Admin</h1><p>Lions International • District 325 F</p></div>
-    <label>Username</label><input id="user" autocomplete="username">
-    <label>Password</label><input id="pass" type="password" autocomplete="current-password">
+    <div class="brand">
+<img src="logo.png">
+<h1>NLF Admin</h1>
+<p>Lions International • District 325 F</p>
+</div>
+    <label>Username</label>
+<input id="user" autocomplete="username">
+    <label>Password</label>
+<input id="pass" type="password" autocomplete="current-password">
     <button id="loginBtn" onclick="login()" style="margin-top:16px">Login</button>
-    <p id="loginMsg" class="msg"></p>
+    <p id="loginMsg" class="msg">
+</p>
     <a class="homeLink" href="./">← Back to Home</a>
   </div>
 
   <div id="app" class="hidden">
     <div class="card top">
-      <div class="brandline"><img src="logo.png"><div><b style="font-size:20px;color:var(--navy)">NLF Contribution Management</b><div id="who" style="font-size:12px;color:#718096"></div></div></div>
-      <div class="actions"><button class="secondary" onclick="goHome()">Home</button><button onclick="previewPdf()">View PDF</button><button onclick="logout()">Logout</button></div>
+      <div class="brandline">
+<img src="logo.png">
+<div>
+<b style="font-size:20px;
+color:var(--navy)">NLF Contribution Management</b>
+<div id="who" style="font-size:12px;
+color:#718096">
+</div>
+</div>
+</div>
+      <div class="actions">
+<button class="secondary" onclick="goHome()">Home</button>
+<button onclick="previewPdf()">View PDF</button>
+<button type="button" class="btn" onclick="downloadPdfDirect()">Download PDF</button>
+<button onclick="logout()">Logout</button>
+</div>
     </div>
-    <div class="card"><div class="filters"><div><label>From</label><input type="date" id="from"></div><div><label>To</label><input type="date" id="to"></div><div><label>Payment</label><select id="payment"><option value="">All</option><option>Cash</option><option>Cheque</option><option>QR</option></select></div><div><label>Status</label><select id="status"><option value="">All</option><option>Pending</option><option>Verified</option></select></div><div><label>Search</label><input id="q" placeholder="Name / Club / Membership / Receipt"></div></div></div>
-    <div class="stats"><div class="stat">Total Records<b id="sRecords">0</b></div><div class="stat">Total Amount<b id="sTotal">Rs. 0</b></div><div class="stat">Pending<b id="sPending">0</b></div><div class="stat">Verified<b id="sVerified">0</b></div></div>
-    <div class="card"><div class="tablebox"><table><thead><tr><th>S.N.</th><th>Receipt</th><th>Date</th><th>Name</th><th>Club</th><th>Membership</th><th>Contact</th><th>Amount</th><th>Payment</th><th>Status</th><th>Action</th></tr></thead><tbody id="tbody"></tbody></table></div></div>
-    <div class="card"><h3 style="color:var(--navy);margin-top:0">User Management</h3><div class="usergrid"><div><label>Username</label><input id="newUser"></div><div><label>Password</label><input id="newPass" type="password" placeholder="Required for new user; optional when updating"></div><div><label>Status</label><select id="newStatus"><option>Active</option><option>Inactive</option></select></div><div><button id="saveUserBtn" onclick="saveUser()">Save User</button></div></div><div id="userMsg" class="msg"></div><div id="usersList" style="margin-top:12px;font-size:13px"></div></div>
+    <div class="card">
+<div class="filters">
+<div>
+<label>From</label>
+<input type="date" id="from">
+</div>
+<div>
+<label>To</label>
+<input type="date" id="to">
+</div>
+<div>
+<label>Payment</label>
+<select id="payment">
+<option value="">All</option>
+<option>Cash</option>
+<option>Cheque</option>
+<option>QR</option>
+</select>
+</div>
+<div>
+<label>Status</label>
+<select id="status">
+<option value="">All</option>
+<option>Pending</option>
+<option>Verified</option>
+</select>
+</div>
+<div>
+<label>Search</label>
+<input id="q" placeholder="Name / Club / Membership / Receipt">
+</div>
+</div>
+</div>
+    <div class="stats">
+<div class="stat">Total Records<b id="sRecords">0</b>
+</div>
+<div class="stat">Total Amount<b id="sTotal">Rs. 0</b>
+</div>
+<div class="stat">Pending<b id="sPending">0</b>
+</div>
+<div class="stat">Verified<b id="sVerified">0</b>
+</div>
+</div>
+    <div class="card">
+<div class="tablebox">
+<table>
+<thead>
+<tr>
+<th>S.N.</th>
+<th>Receipt</th>
+<th>Date</th>
+<th>Name</th>
+<th>Club</th>
+<th>Membership</th>
+<th>Contact</th>
+<th>Amount</th>
+<th>Payment</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="tbody">
+</tbody>
+</table>
+</div>
+</div>
+    <div class="card">
+<h3 style="color:var(--navy);
+margin-top:0">User Management</h3>
+<div class="usergrid">
+<div>
+<label>Username</label>
+<input id="newUser">
+</div>
+<div>
+<label>Password</label>
+<input id="newPass" type="password" placeholder="Required for new user; optional when updating">
+</div>
+<div>
+<label>Status</label>
+<select id="newStatus">
+<option>Active</option>
+<option>Inactive</option>
+</select>
+</div>
+<div>
+<button id="saveUserBtn" onclick="saveUser()">Save User</button>
+</div>
+</div>
+<div id="userMsg" class="msg">
+</div>
+<div id="usersList" style="margin-top:12px;
+font-size:13px">
+</div>
+</div>
   </div>
 </div>
 
-<div id="editModal" class="modal hidden"><div class="modalCard"><h3 style="margin-top:0;color:var(--navy)">Edit Contribution</h3><div id="editIdentity" style="font-size:13px;color:#667;margin-bottom:8px"></div><div class="editGrid"><div><label>Amount</label><input id="editAmount" inputmode="decimal"></div><div><label>Payment Type</label><select id="editPayment"><option>Cash</option><option>Cheque</option><option>QR</option></select></div><div class="wide"><label>Status</label><select id="editStatus"><option>Pending</option><option>Verified</option></select></div></div><div id="editMsg" class="msg"></div><div class="modalActions"><button class="secondary" onclick="closeEdit()">Cancel</button><button id="editSaveBtn" onclick="saveEdit()">Save Changes</button></div></div></div>
-<div id="pdfModal" class="modal hidden"><div class="modalCard preview"><div class="modalActions" style="margin-top:0;margin-bottom:12px"><button class="secondary" onclick="closePdf()">Close</button><button onclick="printPdf()">Print / Save PDF</button></div><div id="reportContent"></div></div></div>
+<div id="editModal" class="modal hidden">
+<div class="modalCard">
+<h3 style="margin-top:0;
+color:var(--navy)">Edit Contribution</h3>
+<div id="editIdentity" style="font-size:13px;
+color:#667;
+margin-bottom:8px">
+</div>
+<div class="editGrid">
+<div>
+<label>Amount</label>
+<input id="editAmount" inputmode="decimal">
+</div>
+<div>
+<label>Payment Type</label>
+<select id="editPayment">
+<option>Cash</option>
+<option>Cheque</option>
+<option>QR</option>
+</select>
+</div>
+<div class="wide">
+<label>Status</label>
+<select id="editStatus">
+<option>Pending</option>
+<option>Verified</option>
+</select>
+</div>
+</div>
+<div id="editMsg" class="msg">
+</div>
+<div class="modalActions">
+<button class="secondary" onclick="closeEdit()">Cancel</button>
+<button id="editSaveBtn" onclick="saveEdit()">Save Changes</button>
+</div>
+</div>
+</div>
+<div id="pdfModal" class="modal hidden">
+<div class="modalCard preview">
+<div class="modalActions" style="margin-top:0;
+margin-bottom:12px">
+<button class="secondary" onclick="closePdf()">Close</button>
+<button onclick="printPdf()">Print / Save PDF</button>
+</div>
+<div id="reportContent">
+</div>
+</div>
+</div>
 
 <script>
 const API="https://script.google.com/macros/s/AKfycby2smDxtGmgD5WvHIZS4ohE2uMtXvblkfl0FNptzDHkWQjPfnFjkBT_T0jttpnjfQv-/exec";
 let token=sessionStorage.getItem('nlfToken')||'',allRows=[],editingRow=null;
 const $=id=>document.getElementById(id);
 ['from','to','payment','status','q'].forEach(id=>$(id)?.addEventListener('input',render));
-$('pass').addEventListener('keydown',e=>{if(e.key==='Enter')login()});
+$('pass').addEventListener('keydown',e=>{
+if(e.key==='Enter')login()}
+);
 if(token)openApp();
-function post(o){return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}).then(async r=>{let t=await r.text();try{return JSON.parse(t)}catch(e){throw new Error('Invalid server response')}})}
-function setMsg(id,msg,type='error'){let x=$(id);x.textContent=msg||'';x.className='msg '+(msg?type:'')}
-function busy(btn,on,text){if(!btn)return; if(on){btn.dataset.old=btn.textContent;btn.disabled=true;btn.textContent=text||'Processing...'}else{btn.disabled=false;btn.textContent=btn.dataset.old||btn.textContent}}
-async function login(){let u=$('user').value.trim(),p=$('pass').value;if(!u||!p){setMsg('loginMsg','Please enter username and password.');return}busy($('loginBtn'),true,'Checking...');setMsg('loginMsg','');try{let r=await post({action:'login',username:u,password:p});if(r.status==='success'){token=r.token;sessionStorage.setItem('nlfToken',token);setMsg('loginMsg','Login successful.','success');openApp()}else setMsg('loginMsg',r.message==='User is inactive'?'Your account is inactive. Please contact administrator.':(r.message||'Invalid Username or Password.'))}catch(e){setMsg('loginMsg','Unable to connect. Please try again.')}finally{busy($('loginBtn'),false)}}
-function openApp(){$('loginCard').classList.add('hidden');$('app').classList.remove('hidden');load()}
-async function load(){try{let r=await fetch(API+'?action=adminData&token='+encodeURIComponent(token)).then(x=>x.json());if(r.status!=='success'){sessionStorage.removeItem('nlfToken');token='';$('app').classList.add('hidden');$('loginCard').classList.remove('hidden');setMsg('loginMsg','Session expired. Please login again.');return}$('who').textContent='Logged in as: '+r.username;allRows=r.rows||[];render();loadUsers()}catch(e){alert('Unable to load admin data. Please refresh and try again.')}}
-function filtered(){let f=$('from').value,t=$('to').value,p=$('payment').value,s=$('status').value,qq=$('q').value.toLowerCase().trim();return allRows.filter(r=>{let dt=parseDate(r.date),d=dt?localYmd(dt):'';return(!f||d>=f)&&(!t||d<=t)&&(!p||r.payment===p)&&(!s||r.status===s)&&(!qq||[r.name,r.club,r.membership,r.receipt,r.contact].join(' ').toLowerCase().includes(qq))})}
-function parseDate(v){if(!v)return null;let d=new Date(v);if(!isNaN(d))return d;let m=String(v).match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);return m?new Date(+m[3],+m[1]-1,+m[2]):null}function localYmd(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
-function render(){let rows=filtered(),total=0,pn=0,vn=0;$('tbody').innerHTML=rows.map((r,i)=>{let n=num(r.amount);total+=n;r.status==='Verified'?vn++:pn++;return `<tr><td>${i+1}</td><td>${e(r.receipt)}</td><td>${e(r.date)}</td><td>${e(r.name)}</td><td>${e(r.club)}</td><td>${e(r.membership)}</td><td>${e(r.contact)}</td><td>Rs. ${n.toLocaleString('en-IN')}</td><td>${e(r.payment)}</td><td><span class="badge ${r.status==='Verified'?'verified':'pending'}">${e(r.status)}</span></td><td><button class="smallbtn editbtn" onclick="openEdit(${r.row})">Edit</button> <button class="smallbtn" onclick="toggleStatus(this,${r.row},'${r.status==='Verified'?'Pending':'Verified'}')">${r.status==='Verified'?'Set Pending':'Verify'}</button></td></tr>`}).join('');$('sRecords').textContent=rows.length;$('sTotal').textContent='Rs. '+total.toLocaleString('en-IN');$('sPending').textContent=pn;$('sVerified').textContent=vn}
-async function toggleStatus(btn,row,status){if(!confirm('Change payment status to '+status+'?'))return;busy(btn,true,'Saving...');try{let r=await post({action:'verifyPayment',token,row,status});if(r.status==='success'){await load()}else alert(r.message||'Unable to update status.')}catch(e){alert('Unable to update status. Please try again.')}finally{busy(btn,false)}}
-function openEdit(row){editingRow=allRows.find(x=>Number(x.row)===Number(row));if(!editingRow)return;$('editIdentity').textContent=(editingRow.receipt||'')+' • '+editingRow.name+' • '+editingRow.membership;$('editAmount').value=editingRow.amount;$('editPayment').value=editingRow.payment;$('editStatus').value=editingRow.status||'Pending';setMsg('editMsg','');$('editModal').classList.remove('hidden')}
-function closeEdit(){$('editModal').classList.add('hidden');editingRow=null}
-async function saveEdit(){if(!editingRow)return;busy($('editSaveBtn'),true,'Saving...');try{let r=await post({action:'updateContribution',token,row:editingRow.row,amount:$('editAmount').value,payment:$('editPayment').value,status:$('editStatus').value});if(r.status==='success'){setMsg('editMsg',r.message||'Updated successfully.','success');await load();setTimeout(closeEdit,500)}else setMsg('editMsg',r.message||'Update failed.')}catch(e){setMsg('editMsg','Unable to save changes. Please try again.')}finally{busy($('editSaveBtn'),false)}}
-async function logout(){if(!confirm('Logout from NLF Admin?'))return;try{await post({action:'logout',token})}catch(e){}sessionStorage.removeItem('nlfToken');token='';$('app').classList.add('hidden');$('loginCard').classList.remove('hidden');$('pass').value='';setMsg('loginMsg','Logged out successfully.','success')}
-function goHome(){location.href='./'}
-async function saveUser(){let username=$('newUser').value.trim();if(!username){setMsg('userMsg','Username is required.');return}busy($('saveUserBtn'),true,'Saving...');setMsg('userMsg','');try{let r=await post({action:'saveUser',token,username,password:$('newPass').value,status:$('newStatus').value});if(r.status==='success'){$('newUser').value='';$('newPass').value='';setMsg('userMsg',r.message||'User saved successfully.','success');loadUsers()}else setMsg('userMsg',r.message||'Unable to save user.')}catch(e){setMsg('userMsg','Unable to save user. Please try again.')}finally{busy($('saveUserBtn'),false)}}
-async function loadUsers(){try{let r=await fetch(API+'?action=users&token='+encodeURIComponent(token)).then(x=>x.json());if(r.status==='success')$('usersList').innerHTML=r.rows.map(x=>`<span onclick="selectUser('${js(x.username)}','${js(x.status)}')" style="display:inline-block;cursor:pointer;padding:7px 10px;margin:3px;border:1px solid #dfe6ed;border-radius:8px"><b>${e(x.username)}</b> • ${e(x.status)}</span>`).join('')}catch(e){}}
-function selectUser(u,s){$('newUser').value=u;$('newPass').value='';$('newStatus').value=s;setMsg('userMsg','Selected '+u+'. Change Status and/or enter a new password, then Save User.','success')}
-function previewPdf(){let rows=filtered(),total=rows.reduce((s,r)=>s+num(r.amount),0),now=new Date();let meta=[];if($('from').value)meta.push('From: '+$('from').value);if($('to').value)meta.push('To: '+$('to').value);if($('payment').value)meta.push('Payment: '+$('payment').value);if($('status').value)meta.push('Status: '+$('status').value);$('reportContent').innerHTML=`<div class="reportSheet"><div class="reportHead"><img src="logo.png"><h1>Lions International</h1><h2>District 325 F</h2><h3>Nepal Lions Foundation (NLF) Contribution Report</h3></div><div class="reportMeta"><span>${e(meta.join(' | ')||'All Contribution Records')}</span><span>Generated: ${e(now.toLocaleString())}</span></div><div class="tablebox"><table class="reportTable"><thead><tr><th>S.N.</th><th>Name</th><th>Club Name</th><th>Membership</th><th>Contact</th><th>Amount</th><th>Payment Type</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td>${i+1}</td><td>${e(r.name)}</td><td>${e(r.club)}</td><td>${e(r.membership)}</td><td>${e(r.contact)}</td><td>Rs. ${num(r.amount).toLocaleString('en-IN')}</td><td>${e(r.payment)}</td></tr>`).join('')}</tbody></table></div><div class="reportTotal">Total Records: ${rows.length} &nbsp;&nbsp; | &nbsp;&nbsp; NLF Total Contribution: Rs. ${total.toLocaleString('en-IN')}</div><div class="reportFooter">Designed by: Nirajan Aryal | Mobile: 9851113811</div></div>`;$('pdfModal').classList.remove('hidden')}
-function closePdf(){$('pdfModal').classList.add('hidden')}
-function printPdf(){let html=$('reportContent').innerHTML,w=window.open('','_blank');if(!w){alert('Please allow pop-ups to open the PDF preview.');return}w.document.write(`<!doctype html><html><head><title>NLF Contribution Report</title><style>@page{size:A4 portrait;margin:12mm 10mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#1f2937;margin:0;background:#fff}.reportSheet{width:100%;padding:0}.reportHead{position:relative;text-align:center;border:1px solid #d9e2ea;border-top:5px solid #c99a16;border-radius:8px;padding:13px 10px 12px;margin-bottom:11px;min-height:78px}.reportHead img{position:absolute;left:13px;top:13px;width:50px;height:auto}.reportHead h1{font-size:21px;color:#003b6f;margin:0 0 3px;font-weight:800}.reportHead h2{font-size:14px;color:#31566f;margin:0 0 4px}.reportHead h3{font-size:15px;color:#9b7400;margin:0;font-weight:700}.reportMeta{display:flex;justify-content:space-between;gap:10px;font-size:10px;margin:9px 0 11px;padding:8px 9px;background:#f5f8fb;border:1px solid #dfe7ee;border-radius:5px}.tablebox{width:100%;overflow:visible}.reportTable{width:100%;border-collapse:collapse;table-layout:fixed;font-size:9.5px}.reportTable th{background:#0b5d75;color:#fff;padding:7px 5px;text-align:left;border:1px solid #0b5d75;font-size:9.5px;line-height:1.2}.reportTable td{padding:6px 5px;border:1px solid #dbe3e9;vertical-align:top;overflow-wrap:anywhere;line-height:1.25}.reportTable tbody tr:nth-child(even){background:#f8fafb}.reportTable th:nth-child(1),.reportTable td:nth-child(1){width:6%;text-align:center}.reportTable th:nth-child(2),.reportTable td:nth-child(2){width:20%}.reportTable th:nth-child(3),.reportTable td:nth-child(3){width:23%}.reportTable th:nth-child(4),.reportTable td:nth-child(4){width:13%}.reportTable th:nth-child(5),.reportTable td:nth-child(5){width:14%}.reportTable th:nth-child(6),.reportTable td:nth-child(6){width:12%}.reportTable th:nth-child(7),.reportTable td:nth-child(7){width:12%}.reportTotal{margin-top:11px;padding:10px 11px;background:#fff9e9;border:1px solid #e7c75d;border-left:5px solid #c99a16;border-radius:5px;font-size:11px;font-weight:bold;color:#003b6f}.reportFooter{text-align:center;margin-top:15px;padding-top:8px;border-top:1px solid #dfe6ed;font-size:9px;color:#667}.modalActions{display:none}thead{display:table-header-group}tr{page-break-inside:avoid}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.reportHead,.reportMeta,.reportTotal{break-inside:avoid}}</style></head><body>${html}<script>window.onload=()=>setTimeout(()=>window.print(),250)<\/script></body></html>`);w.document.close()}
-function num(v){return Number(String(v??'').replace(/[^0-9.-]/g,''))||0}function e(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}function js(v){return String(v??'').replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
+
+function post(o){
+return fetch(API,{
+method:'POST',headers:{
+'Content-Type':'text/plain;
+charset=utf-8'}
+,body:JSON.stringify(o)}
+).then(async r=>{
+let t=await r.text();
+try{
+return JSON.parse(t)}
+catch(e){
+throw new Error('Invalid server response')}
+}
+)}
+
+function setMsg(id,msg,type='error'){
+let x=$(id);
+x.textContent=msg||'';
+x.className='msg '+(msg?type:'')}
+
+function busy(btn,on,text){
+if(!btn)return; if(on){
+btn.dataset.old=btn.textContent;
+btn.disabled=true;
+btn.textContent=text||'Processing...'}
+else{
+btn.disabled=false;
+btn.textContent=btn.dataset.old||btn.textContent}
+}
+async function login(){
+let u=$('user').value.trim(),p=$('pass').value;
+if(!u||!p){
+setMsg('loginMsg','Please enter username and password.');
+return}
+busy($('loginBtn'),true,'Checking...');
+setMsg('loginMsg','');
+try{
+let r=await post({
+action:'login',username:u,password:p}
+);
+if(r.status==='success'){
+token=r.token;
+sessionStorage.setItem('nlfToken',token);
+setMsg('loginMsg','Login successful.','success');
+openApp()}
+else setMsg('loginMsg',r.message==='User is inactive'?'Your account is inactive. Please contact administrator.':(r.message||'Invalid Username or Password.'))}
+catch(e){
+setMsg('loginMsg','Unable to connect. Please try again.')}
+finally{
+busy($('loginBtn'),false)}
+}
+
+function openApp(){
+$('loginCard').classList.add('hidden');$('app').classList.remove('hidden');
+load()}
+async function load(){
+try{
+let r=await fetch(API+'?action=adminData&token='+encodeURIComponent(token)).then(x=>x.json());
+if(r.status!=='success'){
+sessionStorage.removeItem('nlfToken');
+token='';$('app').classList.add('hidden');$('loginCard').classList.remove('hidden');
+setMsg('loginMsg','Session expired. Please login again.');
+return}
+$('who').textContent='Logged in as: '+r.username;
+allRows=r.rows||[];
+render();
+loadUsers()}
+catch(e){
+alert('Unable to load admin data. Please refresh and try again.')}
+}
+
+function filtered(){
+let f=$('from').value,t=$('to').value,p=$('payment').value,s=$('status').value,qq=$('q').value.toLowerCase().trim();
+return allRows.filter(r=>{
+let dt=parseDate(r.date),d=dt?localYmd(dt):'';
+return(!f||d>=f)&&(!t||d<=t)&&(!p||r.payment===p)&&(!s||r.status===s)&&(!qq||[r.name,r.club,r.membership,r.receipt,r.contact].join(' ').toLowerCase().includes(qq))}
+)}
+
+function parseDate(v){
+if(!v)return null;
+let d=new Date(v);
+if(!isNaN(d))return d;
+let m=String(v).match(/(\d{
+1,2}
+)\/(\d{
+1,2}
+)\/(\d{
+4}
+)/);
+return m?new Date(+m[3],+m[1]-1,+m[2]):null}
+
+function localYmd(d){
+return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+
+function render(){
+let rows=filtered(),total=0,pn=0,vn=0;$('tbody').innerHTML=rows.map((r,i)=>{
+let n=num(r.amount);
+total+=n;
+r.status==='Verified'?vn++:pn++;
+return `<tr>
+<td>${
+i+1}
+</td>
+<td>${
+e(r.receipt)}
+</td>
+<td>${
+e(r.date)}
+</td>
+<td>${
+e(r.name)}
+</td>
+<td>${
+e(r.club)}
+</td>
+<td>${
+e(r.membership)}
+</td>
+<td>${
+e(r.contact)}
+</td>
+<td>Rs. ${
+n.toLocaleString('en-IN')}
+</td>
+<td>${
+e(r.payment)}
+</td>
+<td>
+<span class="badge ${
+r.status==='Verified'?'verified':'pending'}
+">${
+e(r.status)}
+</span>
+</td>
+<td>
+<button class="smallbtn editbtn" onclick="openEdit(${
+r.row}
+)">Edit</button> <button class="smallbtn" onclick="toggleStatus(this,${
+r.row}
+,'${
+r.status==='Verified'?'Pending':'Verified'}
+')">${
+r.status==='Verified'?'Set Pending':'Verify'}
+</button>
+</td>
+</tr>`}
+).join('');$('sRecords').textContent=rows.length;$('sTotal').textContent='Rs. '+total.toLocaleString('en-IN');$('sPending').textContent=pn;$('sVerified').textContent=vn}
+async function toggleStatus(btn,row,status){
+if(!confirm('Change payment status to '+status+'?'))return;
+busy(btn,true,'Saving...');
+try{
+let r=await post({
+action:'verifyPayment',token,row,status}
+);
+if(r.status==='success'){
+await load()}
+else alert(r.message||'Unable to update status.')}
+catch(e){
+alert('Unable to update status. Please try again.')}
+finally{
+busy(btn,false)}
+}
+
+function openEdit(row){
+editingRow=allRows.find(x=>Number(x.row)===Number(row));
+if(!editingRow)return;$('editIdentity').textContent=(editingRow.receipt||'')+' • '+editingRow.name+' • '+editingRow.membership;$('editAmount').value=editingRow.amount;$('editPayment').value=editingRow.payment;$('editStatus').value=editingRow.status||'Pending';
+setMsg('editMsg','');$('editModal').classList.remove('hidden')}
+
+function closeEdit(){
+$('editModal').classList.add('hidden');
+editingRow=null}
+async function saveEdit(){
+if(!editingRow)return;
+busy($('editSaveBtn'),true,'Saving...');
+try{
+let r=await post({
+action:'updateContribution',token,row:editingRow.row,amount:$('editAmount').value,payment:$('editPayment').value,status:$('editStatus').value}
+);
+if(r.status==='success'){
+setMsg('editMsg',r.message||'Updated successfully.','success');
+await load();
+setTimeout(closeEdit,500)}
+else setMsg('editMsg',r.message||'Update failed.')}
+catch(e){
+setMsg('editMsg','Unable to save changes. Please try again.')}
+finally{
+busy($('editSaveBtn'),false)}
+}
+async function logout(){
+if(!confirm('Logout from NLF Admin?'))return;
+try{
+await post({
+action:'logout',token}
+)}
+catch(e){
+}
+sessionStorage.removeItem('nlfToken');
+token='';$('app').classList.add('hidden');$('loginCard').classList.remove('hidden');$('pass').value='';
+setMsg('loginMsg','Logged out successfully.','success')}
+
+function goHome(){
+location.href='./'}
+async function saveUser(){
+let username=$('newUser').value.trim();
+if(!username){
+setMsg('userMsg','Username is required.');
+return}
+busy($('saveUserBtn'),true,'Saving...');
+setMsg('userMsg','');
+try{
+let r=await post({
+action:'saveUser',token,username,password:$('newPass').value,status:$('newStatus').value}
+);
+if(r.status==='success'){
+$('newUser').value='';$('newPass').value='';
+setMsg('userMsg',r.message||'User saved successfully.','success');
+loadUsers()}
+else setMsg('userMsg',r.message||'Unable to save user.')}
+catch(e){
+setMsg('userMsg','Unable to save user. Please try again.')}
+finally{
+busy($('saveUserBtn'),false)}
+}
+async function loadUsers(){
+try{
+let r=await fetch(API+'?action=users&token='+encodeURIComponent(token)).then(x=>x.json());
+if(r.status==='success')$('usersList').innerHTML=r.rows.map(x=>`<span onclick="selectUser('${
+js(x.username)}
+','${
+js(x.status)}
+')" style="display:inline-block;
+cursor:pointer;
+padding:7px 10px;
+margin:3px;
+border:1px solid #dfe6ed;
+border-radius:8px">
+<b>${
+e(x.username)}
+</b> • ${
+e(x.status)}
+</span>`).join('')}
+catch(e){
+}
+}
+
+function selectUser(u,s){
+$('newUser').value=u;$('newPass').value='';$('newStatus').value=s;
+setMsg('userMsg','Selected '+u+'. Change Status and/or enter a new password, then Save User.','success')}
+
+function previewPdf(){
+let rows=filtered(),total=rows.reduce((s,r)=>s+num(r.amount),0),now=new Date();
+let meta=[];
+if($('from').value)meta.push('From: '+$('from').value);
+if($('to').value)meta.push('To: '+$('to').value);
+if($('payment').value)meta.push('Payment: '+$('payment').value);
+if($('status').value)meta.push('Status: '+$('status').value);$('reportContent').innerHTML=`<div class="reportSheet">
+<div class="reportHead">
+<img src="logo.png">
+<h1>Lions International</h1>
+<h2>District 325 F</h2>
+<h3>Nepal Lions Foundation (NLF) Contribution Report</h3>
+</div>
+<div class="reportMeta">
+<span>${
+e(meta.join(' | ')||'All Contribution Records')}
+</span>
+<span>Generated: ${
+e(now.toLocaleString())}
+</span>
+</div>
+<div class="tablebox">
+<table class="reportTable">
+<thead>
+<tr>
+<th>S.N.</th>
+<th>Name</th>
+<th>Club Name</th>
+<th>Membership</th>
+<th>Contact</th>
+<th>Amount</th>
+<th>Payment Type</th>
+</tr>
+</thead>
+<tbody>${
+rows.map((r,i)=>`<tr>
+<td>${
+i+1}
+</td>
+<td>${
+e(r.name)}
+</td>
+<td>${
+e(r.club)}
+</td>
+<td>${
+e(r.membership)}
+</td>
+<td>${
+e(r.contact)}
+</td>
+<td>Rs. ${
+num(r.amount).toLocaleString('en-IN')}
+</td>
+<td>${
+e(r.payment)}
+</td>
+</tr>`).join('')}
+</tbody>
+</table>
+</div>
+<div class="reportTotal">Total Records: ${
+rows.length}
+&nbsp;&nbsp; | &nbsp;&nbsp; NLF Total Contribution: Rs. ${
+total.toLocaleString('en-IN')}
+</div>
+<div class="reportFooter">Designed by: Nirajan Aryal | Mobile: 9851113811</div>
+</div>`;$('pdfModal').classList.remove('hidden')}
+
+function closePdf(){
+$('pdfModal').classList.add('hidden')}
+
+function printPdf(){
+let html=$('reportContent').innerHTML,w=window.open('','_blank');
+if(!w){
+alert('Please allow pop-ups to open the PDF preview.');
+return}
+w.document.write(`<!doctype html>
+<html>
+<head>
+<title>NLF Contribution Report</title>
+<style>@page{
+size:A4 portrait;
+margin:12mm 10mm}
+*{
+box-sizing:border-box}
+body{
+font-family:Arial,sans-serif;
+color:#1f2937;
+margin:0;
+background:#fff}
+.reportSheet{
+width:100%;
+padding:0}
+.reportHead{
+position:relative;
+text-align:center;
+border:1px solid #d9e2ea;
+border-top:5px solid #c99a16;
+border-radius:8px;
+padding:13px 10px 12px;
+margin-bottom:11px;
+min-height:78px}
+.reportHead img{
+position:absolute;
+left:13px;
+top:13px;
+width:50px;
+height:auto}
+.reportHead h1{
+font-size:21px;
+color:#003b6f;
+margin:0 0 3px;
+font-weight:800}
+.reportHead h2{
+font-size:14px;
+color:#31566f;
+margin:0 0 4px}
+.reportHead h3{
+font-size:15px;
+color:#9b7400;
+margin:0;
+font-weight:700}
+.reportMeta{
+display:flex;
+justify-content:space-between;
+gap:10px;
+font-size:10px;
+margin:9px 0 11px;
+padding:8px 9px;
+background:#f5f8fb;
+border:1px solid #dfe7ee;
+border-radius:5px}
+.tablebox{
+width:100%;
+overflow:visible}
+.reportTable{
+width:100%;
+border-collapse:collapse;
+table-layout:fixed;
+font-size:9.5px}
+.reportTable th{
+background:#0b5d75;
+color:#fff;
+padding:7px 5px;
+text-align:left;
+border:1px solid #0b5d75;
+font-size:9.5px;
+line-height:1.2}
+.reportTable td{
+padding:6px 5px;
+border:1px solid #dbe3e9;
+vertical-align:top;
+overflow-wrap:anywhere;
+line-height:1.25}
+.reportTable tbody tr:nth-child(even){
+background:#f8fafb}
+.reportTable th:nth-child(1),.reportTable td:nth-child(1){
+width:6%;
+text-align:center}
+.reportTable th:nth-child(2),.reportTable td:nth-child(2){
+width:20%}
+.reportTable th:nth-child(3),.reportTable td:nth-child(3){
+width:23%}
+.reportTable th:nth-child(4),.reportTable td:nth-child(4){
+width:13%}
+.reportTable th:nth-child(5),.reportTable td:nth-child(5){
+width:14%}
+.reportTable th:nth-child(6),.reportTable td:nth-child(6){
+width:12%}
+.reportTable th:nth-child(7),.reportTable td:nth-child(7){
+width:12%}
+.reportTotal{
+margin-top:11px;
+padding:10px 11px;
+background:#fff9e9;
+border:1px solid #e7c75d;
+border-left:5px solid #c99a16;
+border-radius:5px;
+font-size:11px;
+font-weight:bold;
+color:#003b6f}
+.reportFooter{
+text-align:center;
+margin-top:15px;
+padding-top:8px;
+border-top:1px solid #dfe6ed;
+font-size:9px;
+color:#667}
+.modalActions{
+display:none}
+thead{
+display:table-header-group}
+tr{
+page-break-inside:avoid}
+@media print{
+body{
+-webkit-print-color-adjust:exact;
+print-color-adjust:exact}
+.reportHead,.reportMeta,.reportTotal{
+break-inside:avoid}
+}
+</style>  <!-- PDF Engine: client-side text PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js">
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js">
+</script>
+</head>
+<body>${
+html}
+<script>window.onload=()=>setTimeout(()=>window.print(),250)<\/script>
+</body>
+</html>`);
+w.document.close()}
+
+function num(v){
+return Number(String(v??'').replace(/[^0-9.-]/g,''))||0}
+
+function e(v){
+return String(v??'').replace(/[&<>"']/g,m=>({
+'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}
+[m]))}
+
+function js(v){
+return String(v??'').replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
+/* ============================================================
+   DIRECT PDF DOWNLOAD
+   A4 Portrait | Selectable Text | Universal Table Layout
+   Columns: S.N., Name, Club Name, Membership, Contact,
+            Amount, Payment Type
+   ============================================================ */
+
+function downloadPdfDirect() {
+try {
+if (!window.jspdf || !window.jspdf.jsPDF) {
+alert("PDF engine is still loading. Please try again in a moment.");
+      return;
+    }
+const sourceRows =
+      (typeof filteredRows !== "undefined" && Array.isArray(filteredRows))
+        ? filteredRows
+        : ((typeof contributionRows !== "undefined" && Array.isArray(contributionRows))
+            ? contributionRows
+            : ((typeof allRows !== "undefined" && Array.isArray(allRows)) ? allRows : []));
+
+    if (!sourceRows.length) {
+alert("No contribution data available for PDF.");
+      return;
+    }
+const {
+jsPDF }
+= window.jspdf;
+    const doc = new jsPDF({
+orientation: "portrait",
+      unit: "mm",
+      format: "a4",
+      compress: true
+    }
+);
+
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const today = new Date();
+    const generatedDate = today.toLocaleString();
+
+    // ---------- Report Header ----------
+    doc.setDrawColor(201, 154, 22);
+    doc.setLineWidth(1.4);
+    doc.line(10, 11, pageWidth - 10, 11);
+
+    doc.setTextColor(0, 59, 111);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(17);
+    doc.text("Lions International", pageWidth / 2, 19, {
+align: "center" }
+);
+
+    doc.setFontSize(11);
+    doc.text("District 325 F", pageWidth / 2, 25, {
+align: "center" }
+);
+
+    doc.setTextColor(155, 116, 0);
+    doc.setFontSize(13);
+    doc.text("Nepal Lions Foundation (NLF)", pageWidth / 2, 31, {
+align: "center" }
+);
+
+    doc.setTextColor(31, 41, 55);
+    doc.setFontSize(11);
+    doc.text("Contribution Report", pageWidth / 2, 37, {
+align: "center" }
+);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(90, 100, 112);
+    doc.text("Generated: " + generatedDate, 10, 44);
+
+    // ---------- Build Rows ----------
+    let totalAmount = 0;
+
+    const body = sourceRows.map(function(row, index) {
+const amountValue = Number(
+        String(row.amount == null ? "" : row.amount).replace(/[^0-9.-]/g, "")
+      );
+
+      if (Number.isFinite(amountValue)) {
+totalAmount += amountValue;
+      }
+return [
+        String(index + 1),
+        String(row.name || ""),
+        String(row.club || ""),
+        String(row.membership || row.memberId || ""),
+        String(row.contact || ""),
+        Number.isFinite(amountValue)
+          ? "Rs. " + amountValue.toLocaleString("en-IN")
+          : String(row.amount || ""),
+        String(row.payment || row.paymentType || "")
+      ];
+    }
+);
+
+    // ---------- Text Table ----------
+    doc.autoTable({
+startY: 49,
+      head: [[
+        "S.N.",
+        "Name",
+        "Club Name",
+        "Membership",
+        "Contact",
+        "Amount",
+        "Payment Type"
+      ]],
+      body: body,
+      theme: "grid",
+      margin: {
+left: 8, right: 8, bottom: 16 }
+,
+      styles: {
+font: "helvetica",
+        fontSize: 8.2,
+        cellPadding: 2.1,
+        valign: "middle",
+        overflow: "linebreak",
+        textColor: [31, 41, 55],
+        lineColor: [219, 227, 233],
+        lineWidth: 0.15
+      }
+,
+      headStyles: {
+fillColor: [11, 93, 117],
+        textColor: [255, 255, 255],
+        fontStyle: "bold",
+        fontSize: 8.2
+      }
+,
+      alternateRowStyles: {
+fillColor: [248, 250, 251]
+      }
+,
+      columnStyles: {
+0: {
+cellWidth: 10, halign: "center" }
+,
+        1: {
+cellWidth: 34 }
+,
+        2: {
+cellWidth: 38 }
+,
+        3: {
+cellWidth: 27 }
+,
+        4: {
+cellWidth: 25 }
+,
+        5: {
+cellWidth: 25, halign: "right" }
+,
+        6: {
+cellWidth: 28 }
+}
+,
+      didDrawPage: function(data) {
+const pageHeight = doc.internal.pageSize.getHeight();
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(7.5);
+        doc.setTextColor(100, 116, 139);
+        doc.text(
+          "Designed by: Nirajan Aryal | 9851113811",
+          pageWidth / 2,
+          pageHeight - 7,
+          {
+align: "center" }
+);
+      }
+}
+);
+
+    // ---------- Summary ----------
+    let y = doc.lastAutoTable.finalY + 8;
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    if (y > pageHeight - 30) {
+doc.addPage();
+      y = 18;
+    }
+doc.setFillColor(255, 249, 233);
+    doc.setDrawColor(231, 199, 93);
+    doc.roundedRect(10, y, pageWidth - 20, 17, 2, 2, "FD");
+
+    doc.setTextColor(0, 59, 111);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9.5);
+    doc.text("Total Records: " + sourceRows.length, 15, y + 7);
+    doc.text(
+      "Total Contribution: Rs. " + totalAmount.toLocaleString("en-IN"),
+      pageWidth - 15,
+      y + 7,
+      {
+align: "right" }
+);
+
+    // ---------- Direct Download ----------
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const dd = String(today.getDate()).padStart(2, "0");
+
+    doc.save("NLF_Contribution_Report_" + yyyy + "-" + mm + "-" + dd + ".pdf");
+  }
+catch (error) {
+console.error("Direct PDF download error:", error);
+    alert("Unable to create PDF. Please try again.");
+  }
+}
 </script>
 </body>
 </html>
