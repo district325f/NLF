@@ -921,16 +921,16 @@ function previewPdf() {
   if($('to').value)meta.push('To: '+$('to').value);
   if($('payment').value)meta.push('Payment: '+$('payment').value);
   if($('status').value)meta.push('Status: '+$('status').value);
-  $('reportContent').innerHTML=`<div class="reportSheet"><div class="reportHead"><img src="logo.png"><h1>Lions International</h1><h2>District 325 F</h2><h3>Nepal Lions Foundation (NLF) Contribution Report</h3></div><div class="reportMeta"><span>${e(meta.join(' | ')||'All Contribution Records')}</span><span>Generated: ${e(now.toLocaleString())}</span></div><div class="tablebox"><table class="reportTable"><thead><tr><th>S.N.</th><th>Name</th><th>Club Name</th><th>Membership</th><th>Contact</th><th>Amount</th><th>Payment Type</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td>$ {
+  $('reportContent').innerHTML=`<div class="reportSheet"><div class="reportHead"><img src="logo.png"><h1>Lions International</h1><h2>District 325 F</h2><h3>Nepal Lions Foundation (NLF) Contribution Report</h3></div><div class="reportMeta"><span>${e(meta.join(' | ')||'All Contribution Records')}</span><span>Generated: ${e(now.toLocaleString())}</span></div><div class="tablebox"><table class="reportTable"><thead><tr><th>S.N.</th><th>Name</th><th>Club Name</th><th>Membership</th><th>Contact</th><th>Amount</th><th>Payment Type</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td>${
     i+1
   }
-  </td><td>${e(r.name)}</td><td>$ {
+  </td><td>${e(r.name)}</td><td>${
     e(r.club)
   }
-  </td><td>${e(r.membership)}</td><td>$ {
+  </td><td>${e(r.membership)}</td><td>${
     e(r.contact)
   }
-  </td><td>Rs. ${num(r.amount).toLocaleString('en-IN')}</td><td>$ {
+  </td><td>Rs. ${num(r.amount).toLocaleString('en-IN')}</td><td>${
     e(r.payment)
   }
   </td></tr>`).join('')}</tbody></table></div><div class="reportTotal">Total Records: ${rows.length} &nbsp;&nbsp; | &nbsp;&nbsp; NLF Total Contribution: Rs. ${total.toLocaleString('en-IN')}</div><div class="reportFooter">Designed by: Nirajan Aryal | Mobile: 9851113811</div></div>`;
