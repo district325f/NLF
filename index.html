@@ -31,27 +31,23 @@
     .member-status { display:none; margin-top:7px; font-size:12px; font-weight:600; }
     .member-status.ok { display:block; color:#1f7a3f; }
     .member-status.error { display:block; color:#b42318; }
-    .table-section {
-      margin-top: 24px;
-      width: calc(100% + 180px);
-      margin-left: -90px;
-      overflow-x: visible;
-    }
+    .table-section { margin-top:24px; width:100%; overflow:hidden; }
     .table-section h3 { text-align:center; color:var(--primary-color); font-size:16px; margin:0 0 10px; }
-    .contribution-table { width:100%; border-collapse:collapse; font-size:12px; table-layout:fixed; }
-    .contribution-table th, .contribution-table td { border:1px solid #d9e0e7; padding:8px 6px; text-align:left; overflow-wrap:anywhere; }
-    .contribution-table th { background:#f3f6f9; color:var(--primary-color); }
-    .contribution-table th:nth-child(1), .contribution-table td:nth-child(1) { width:25%; }
+    .contribution-table { width:100%; border-collapse:collapse; font-size:10px; table-layout:fixed; }
+    .contribution-table th, .contribution-table td { border:1px solid #d9e0e7; padding:7px 4px; text-align:left; vertical-align:middle; white-space:normal; overflow-wrap:break-word; word-break:normal; }
+    .contribution-table th { background:#f3f6f9; color:var(--primary-color); font-weight:700; }
+    .contribution-table th:nth-child(1), .contribution-table td:nth-child(1) { width:24%; }
     .contribution-table th:nth-child(2), .contribution-table td:nth-child(2) { width:25%; }
-    .contribution-table th:nth-child(3), .contribution-table td:nth-child(3) { width:19%; }
-    .contribution-table th:nth-child(4), .contribution-table td:nth-child(4) { width:14%; }
-    .contribution-table th:nth-child(5), .contribution-table td:nth-child(5) { width:17%; }
+    .contribution-table th:nth-child(3), .contribution-table td:nth-child(3) { width:20%; }
+    .contribution-table th:nth-child(4), .contribution-table td:nth-child(4) { width:13%; }
+    .contribution-table th:nth-child(5), .contribution-table td:nth-child(5) { width:18%; }
     .table-message { text-align:center; color:#777; padding:12px; font-size:12px; }
 
-    @media (max-width: 700px) {
-      .table-section { width:100%; margin-left:0; }
-      .contribution-table { font-size:9px; }
-      .contribution-table th, .contribution-table td { padding:6px 3px; }
+    @media (max-width: 520px) {
+      body { padding-left:8px; padding-right:8px; }
+      .form-container { padding-left:18px; padding-right:18px; }
+      .contribution-table { font-size:8.5px; }
+      .contribution-table th, .contribution-table td { padding:6px 2px; }
     }
     .footer { font-size: 13px; margin-top: 25px; color: #555; background: #f8f9fa; padding: 11px; border-radius: 6px; border-top: 3px solid var(--accent-color); font-weight: bold; text-align: center; }
   </style>
@@ -118,6 +114,8 @@
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2smDxtGmgD5WvHIZS4ohE2uMtXvblkfl0FNptzDHkWQjPfnFjkBT_T0jttpnjfQv-/exec";
   let memberVerified = false;
   let lookupTimer = null;
+  let lookupRequestId = 0;
+  let verifiedMembership = "";
 
   window.onload = function() {
     loadClubs();
@@ -142,17 +140,30 @@
 
   document.getElementById("membership").addEventListener("input", function() {
     clearTimeout(lookupTimer);
-    clearMember();
     const membership = this.value.trim();
-    if (!membership) return;
+    lookupRequestId++;
+
+    if (!membership) {
+      clearMember();
+      setMemberStatus("", "");
+      return;
+    }
+
+    if (memberVerified && membership === verifiedMembership) return;
+
+    clearMember();
     setMemberStatus("Searching member...", "");
-    lookupTimer = setTimeout(() => lookupMember(membership), 450);
+    const requestId = lookupRequestId;
+    lookupTimer = setTimeout(() => lookupMember(membership, requestId), 450);
   });
 
-  function lookupMember(membership) {
+  function lookupMember(membership, requestId) {
     fetch(WEB_APP_URL + "?action=member&membership=" + encodeURIComponent(membership))
       .then(response => response.json())
       .then(res => {
+        const currentMembership = document.getElementById("membership").value.trim();
+        if (requestId !== lookupRequestId || membership !== currentMembership) return;
+
         if (!res || !res.found) {
           clearMember();
           setMemberStatus("Membership Number not found", "error");
@@ -169,9 +180,12 @@
         }
         clubSelect.value = res.club || "";
         memberVerified = !!(res.name && res.club && res.contact);
+        verifiedMembership = memberVerified ? membership : "";
         setMemberStatus(memberVerified ? "Member verified" : "Member data is incomplete", memberVerified ? "ok" : "error");
       })
       .catch(err => {
+        const currentMembership = document.getElementById("membership").value.trim();
+        if (requestId !== lookupRequestId || membership !== currentMembership) return;
         clearMember();
         setMemberStatus("Unable to verify membership number", "error");
         console.error(err);
@@ -180,6 +194,7 @@
 
   function clearMember() {
     memberVerified = false;
+    verifiedMembership = "";
     document.getElementById("name").value = "";
     document.getElementById("contact").value = "";
     document.getElementById("clubList").value = "";
