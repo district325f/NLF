@@ -976,7 +976,8 @@ async function downloadPdfDirect() {
   }
 
   try {
-    const pdfBytes = buildStandaloneTextPdf(rows);
+    const logoData = await loadPdfLogoJpeg();
+    const pdfBytes = buildStandaloneTextPdf(rows, logoData);
     const blob = new Blob(
       [pdfBytes],
       { type: 'application/pdf' }
@@ -1027,7 +1028,72 @@ async function downloadPdfDirect() {
    - Real vector table lines/backgrounds
    ============================================================ */
 
-function buildStandaloneTextPdf(rows) {
+async function loadPdfLogoJpeg() {
+  try {
+    const response = await fetch(
+      'logo.png',
+      { cache: 'force-cache' }
+    );
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const blob = await response.blob();
+    const bitmap = await createImageBitmap(blob);
+
+    const canvas = document.createElement('canvas');
+    canvas.width = bitmap.width;
+    canvas.height = bitmap.height;
+
+    const context = canvas.getContext('2d');
+
+    // White background keeps transparent PNG areas clean in PDF.
+    context.fillStyle = '#FFFFFF';
+    context.fillRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+    context.drawImage(bitmap, 0, 0);
+
+    const jpegBlob = await new Promise(function(resolve) {
+      canvas.toBlob(
+        resolve,
+        'image/jpeg',
+        0.94
+      );
+    });
+
+    if (!jpegBlob) {
+      return null;
+    }
+
+    const bytes = new Uint8Array(
+      await jpegBlob.arrayBuffer()
+    );
+
+    let binary = '';
+
+    for (let i = 0; i < bytes.length; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+
+    return {
+      binary: binary,
+      width: canvas.width,
+      height: canvas.height
+    };
+  } catch (error) {
+    console.warn('PDF logo could not be loaded:', error);
+    return null;
+  }
+}
+
+
+function buildStandaloneTextPdf(rows, logoData) {
   const PAGE_W = 595.28;
   const PAGE_H = 841.89;
 
@@ -1090,6 +1156,23 @@ function buildStandaloneTextPdf(rows) {
     '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>'
   );
 
+  // Object 5: Lions logo (same logo.png used by the website).
+  if (logoData && logoData.binary) {
+    objects.push(
+      '<< /Type /XObject ' +
+      '/Subtype /Image ' +
+      '/Width ' + logoData.width + ' ' +
+      '/Height ' + logoData.height + ' ' +
+      '/ColorSpace /DeviceRGB ' +
+      '/BitsPerComponent 8 ' +
+      '/Filter /DCTDecode ' +
+      '/Length ' + logoData.binary.length + ' >>\n' +
+      'stream\n' +
+      logoData.binary +
+      '\nendstream'
+    );
+  }
+
   pages.forEach(function(pageRowsData, pageIndex) {
     const pageObjectNumber = objects.length + 1;
     const contentObjectNumber = pageObjectNumber + 1;
@@ -1108,7 +1191,8 @@ function buildStandaloneTextPdf(rows) {
       PAGE_W,
       PAGE_H,
       headerY,
-      rowHeight
+      rowHeight,
+      logoData
     );
 
     objects.push(
@@ -1117,6 +1201,9 @@ function buildStandaloneTextPdf(rows) {
       '/MediaBox [0 0 ' + PAGE_W + ' ' + PAGE_H + '] ' +
       '/Resources << ' +
       '/Font << /F1 3 0 R /F2 4 0 R >> ' +
+      (logoData && logoData.binary
+        ? '/XObject << /Im1 5 0 R >> '
+        : '') +
       '>> ' +
       '/Contents ' + contentObjectNumber + ' 0 R ' +
       '>>'
@@ -1154,12 +1241,29 @@ function buildPdfPageStream(
   pageWidth,
   pageHeight,
   headerY,
-  rowHeight
+  rowHeight,
+  logoData
 ) {
   const commands = [];
   const now = new Date();
 
   /* ---------- Header ---------- */
+
+  if (logoData && logoData.binary) {
+    // Keep logo proportional and clear of the centered report headings.
+    const logoW = 34;
+    const logoH = 34 * (logoData.height / logoData.width);
+    const logoY = pageHeight - 104;
+
+    commands.push(
+      'q ' +
+      logoW.toFixed(2) + ' 0 0 ' +
+      logoH.toFixed(2) + ' ' +
+      (left + 4).toFixed(2) + ' ' +
+      logoY.toFixed(2) +
+      ' cm /Im1 Do Q'
+    );
+  }
 
   commands.push('0.788 0.604 0.086 RG');
   commands.push('1.5 w');
