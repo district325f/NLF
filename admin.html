@@ -388,7 +388,8 @@ td {
 
 }
 </style>
- </head>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
  <body>
   <div class="wrap">
    <div class="card login" id="loginCard">
@@ -678,6 +679,9 @@ td {
      <button onclick="printPdf()">
       Print / Save PDF
      </button>
+     <button onclick="downloadPdfDirect()">
+      Download PDF
+     </button>
     </div>
     <div id="reportContent">
     </div>
@@ -945,6 +949,77 @@ function printPdf() {
   w.document.write(`<!doctype html><html><head><title>NLF Contribution Report</title><style>@page{size:A4 portrait;margin:12mm 10mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#1f2937;margin:0;background:#fff}.reportSheet{width:100%;padding:0}.reportHead{position:relative;text-align:center;border:1px solid #d9e2ea;border-top:5px solid #c99a16;border-radius:8px;padding:13px 10px 12px;margin-bottom:11px;min-height:78px}.reportHead img{position:absolute;left:13px;top:13px;width:50px;height:auto}.reportHead h1{font-size:21px;color:#003b6f;margin:0 0 3px;font-weight:800}.reportHead h2{font-size:14px;color:#31566f;margin:0 0 4px}.reportHead h3{font-size:15px;color:#9b7400;margin:0;font-weight:700}.reportMeta{display:flex;justify-content:space-between;gap:10px;font-size:10px;margin:9px 0 11px;padding:8px 9px;background:#f5f8fb;border:1px solid #dfe7ee;border-radius:5px}.tablebox{width:100%;overflow:visible}.reportTable{width:100%;border-collapse:collapse;table-layout:fixed;font-size:9.5px}.reportTable th{background:#0b5d75;color:#fff;padding:7px 5px;text-align:left;border:1px solid #0b5d75;font-size:9.5px;line-height:1.2}.reportTable td{padding:6px 5px;border:1px solid #dbe3e9;vertical-align:top;overflow-wrap:anywhere;line-height:1.25}.reportTable tbody tr:nth-child(even){background:#f8fafb}.reportTable th:nth-child(1),.reportTable td:nth-child(1){width:6%;text-align:center}.reportTable th:nth-child(2),.reportTable td:nth-child(2){width:20%}.reportTable th:nth-child(3),.reportTable td:nth-child(3){width:23%}.reportTable th:nth-child(4),.reportTable td:nth-child(4){width:13%}.reportTable th:nth-child(5),.reportTable td:nth-child(5){width:14%}.reportTable th:nth-child(6),.reportTable td:nth-child(6){width:12%}.reportTable th:nth-child(7),.reportTable td:nth-child(7){width:12%}.reportTotal{margin-top:11px;padding:10px 11px;background:#fff9e9;border:1px solid #e7c75d;border-left:5px solid #c99a16;border-radius:5px;font-size:11px;font-weight:bold;color:#003b6f}.reportFooter{text-align:center;margin-top:15px;padding-top:8px;border-top:1px solid #dfe6ed;font-size:9px;color:#667}.modalActions{display:none}thead{display:table-header-group}tr{page-break-inside:avoid}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.reportHead,.reportMeta,.reportTotal{break-inside:avoid}}</style></head><body>${html}<script>window.onload=()=>setTimeout(()=>window.print(),250)<\/script></body></html>`);
   w.document.close()
 }
+
+
+/* ============================================================
+   DIRECT PDF DOWNLOAD
+   Downloads the currently previewed NLF report as A4 Portrait PDF.
+   Existing Print / Save PDF behavior remains unchanged.
+   ============================================================ */
+async function downloadPdfDirect() {
+  const report = $('reportContent');
+
+  if (!report || !report.innerHTML.trim()) {
+    alert('Please open the PDF report first.');
+    return;
+  }
+
+  if (typeof html2pdf === 'undefined') {
+    alert('PDF download engine is still loading. Please try again.');
+    return;
+  }
+
+  const button = document.querySelector('button[onclick="downloadPdfDirect()"]');
+  const oldText = button ? button.textContent : '';
+
+  if (button) {
+    button.disabled = true;
+    button.textContent = 'Downloading...';
+  }
+
+  const today = new Date();
+  const fileDate =
+    today.getFullYear() + '-' +
+    String(today.getMonth() + 1).padStart(2, '0') + '-' +
+    String(today.getDate()).padStart(2, '0');
+
+  const options = {
+    margin: [10, 8, 10, 8],
+    filename: 'NLF_Contribution_Report_' + fileDate + '.pdf',
+    image: {
+      type: 'jpeg',
+      quality: 0.98
+    },
+    html2canvas: {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: '#ffffff',
+      logging: false
+    },
+    jsPDF: {
+      unit: 'mm',
+      format: 'a4',
+      orientation: 'portrait'
+    },
+    pagebreak: {
+      mode: ['css', 'legacy'],
+      avoid: ['tr', '.reportHead', '.reportMeta', '.reportTotal']
+    }
+  };
+
+  try {
+    await html2pdf().set(options).from(report).save();
+  } catch (error) {
+    console.error('Direct PDF download failed:', error);
+    alert('Unable to download PDF. Please try again.');
+  } finally {
+    if (button) {
+      button.disabled = false;
+      button.textContent = oldText || 'Download PDF';
+    }
+  }
+}
+
 function num(v) {
   return Number(String(v??'').replace(/[^0-9.-]/g,''))||0
 }
