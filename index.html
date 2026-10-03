@@ -216,35 +216,54 @@
     document.getElementById("qr-section").style.display = (val === "QR") ? "block" : "none";
   }
 
-  function loadContributions() {
-    fetch(WEB_APP_URL + "?action=contributions")
+  function renderContributions(rows) {
+    const wrap = document.getElementById("tableWrap");
+    if (!Array.isArray(rows) || rows.length === 0) {
+      wrap.className = "table-message";
+      wrap.textContent = "No contribution data found.";
+      return;
+    }
+    let totalAmount = 0, desktopRows = '', mobileCards = '';
+    rows.forEach((r, index) => {
+      const numericAmount = Number(String(r.amount == null ? '' : r.amount).replace(/[^0-9.-]/g, ''));
+      if (Number.isFinite(numericAmount)) totalAmount += numericAmount;
+      const formattedAmount = Number.isFinite(numericAmount) ? numericAmount.toLocaleString('en-IN') : esc(r.amount);
+      desktopRows += '<tr><td>' + (index + 1) + '</td><td>' + esc(r.name) + '</td><td>' + esc(r.club) + '</td><td>' + esc(r.contact) + '</td><td class="amount-cell">Rs. ' + formattedAmount + '</td><td><span class="payment-badge">' + esc(r.payment) + '</span></td></tr>';
+      mobileCards += '<div class="contribution-card"><div class="contribution-card-head"><div><div class="contribution-card-name">' + esc(r.name) + '</div><div class="contribution-card-club">' + esc(r.club) + '</div></div><span class="payment-badge">' + esc(r.payment) + '</span></div><div class="contribution-card-grid"><div><div class="mini-label">Contact</div><div class="mini-value">' + esc(r.contact) + '</div></div><div><div class="mini-label">Amount</div><div class="mini-value">Rs. ' + formattedAmount + '</div></div></div></div>';
+    });
+    wrap.className = "";
+    wrap.innerHTML = '<div class="stats-row"><div class="stat-box"><div class="stat-label">Total Contributors</div><div class="stat-value">' + rows.length.toLocaleString('en-IN') + '</div></div><div class="stat-box"><div class="stat-label">Total Contribution</div><div class="stat-value">Rs. ' + totalAmount.toLocaleString('en-IN') + '</div></div></div>' +
+      '<div class="desktop-table"><table class="contribution-table"><thead><tr><th>S.N.</th><th>Name</th><th>Club Name</th><th>Contact</th><th>Amount</th><th>Payment Type</th></tr></thead><tbody>' + desktopRows + '</tbody></table></div>' +
+      '<div class="mobile-cards">' + mobileCards + '</div>' +
+      '<div class="total-summary"><div class="total-summary-label">NLF Total Contribution</div><div class="total-summary-amount">Rs. ' + totalAmount.toLocaleString('en-IN') + '</div></div>';
+  }
+
+  function loadContributions(forceRefresh) {
+    const wrap = document.getElementById("tableWrap");
+    if (!forceRefresh) {
+      try {
+        const cached = JSON.parse(localStorage.getItem("NLF_PUBLIC_CONTRIBUTIONS") || "null");
+        if (Array.isArray(cached) && cached.length) renderContributions(cached);
+      } catch (_) {}
+    }
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000);
+    fetch(WEB_APP_URL + "?action=contributions&_=" + Date.now(), { signal: controller.signal, cache: "no-store" })
       .then(response => response.json())
       .then(rows => {
-        const wrap = document.getElementById("tableWrap");
-        if (!Array.isArray(rows) || rows.length === 0) {
-          wrap.className = "table-message";
-          wrap.textContent = "No contribution data found.";
-          return;
-        }
-        let totalAmount = 0;
-        let desktopRows = '';
-        let mobileCards = '';
-        rows.forEach((r, index) => {
-          const numericAmount = Number(String(r.amount == null ? '' : r.amount).replace(/[^0-9.-]/g, ''));
-          if (Number.isFinite(numericAmount)) totalAmount += numericAmount;
-          const formattedAmount = Number.isFinite(numericAmount) ? numericAmount.toLocaleString('en-IN') : esc(r.amount);
-          desktopRows += '<tr><td>' + (index + 1) + '</td><td>' + esc(r.name) + '</td><td>' + esc(r.club) + '</td><td>' + esc(r.contact) + '</td><td class="amount-cell">Rs. ' + formattedAmount + '</td><td><span class="payment-badge">' + esc(r.payment) + '</span></td></tr>';
-          mobileCards += '<div class="contribution-card"><div class="contribution-card-head"><div><div class="contribution-card-name">' + esc(r.name) + '</div><div class="contribution-card-club">' + esc(r.club) + '</div></div><span class="payment-badge">' + esc(r.payment) + '</span></div><div class="contribution-card-grid"><div><div class="mini-label">Contact</div><div class="mini-value">' + esc(r.contact) + '</div></div><div><div class="mini-label">Amount</div><div class="mini-value">Rs. ' + formattedAmount + '</div></div></div></div>';
-        });
-        let html = '<div class="stats-row"><div class="stat-box"><div class="stat-label">Total Contributors</div><div class="stat-value">' + rows.length.toLocaleString('en-IN') + '</div></div><div class="stat-box"><div class="stat-label">Total Contribution</div><div class="stat-value">Rs. ' + totalAmount.toLocaleString('en-IN') + '</div></div></div>' +
-          '<div class="desktop-table"><table class="contribution-table"><thead><tr><th>S.N.</th><th>Name</th><th>Club Name</th><th>Contact</th><th>Amount</th><th>Payment Type</th></tr></thead><tbody>' + desktopRows + '</tbody></table></div>' +
-          '<div class="mobile-cards">' + mobileCards + '</div>' +
-          '<div class="total-summary"><div class="total-summary-label">NLF Total Contribution</div><div class="total-summary-amount">Rs. ' + totalAmount.toLocaleString('en-IN') + '</div></div>';
-        wrap.className = "";
-        wrap.innerHTML = html;
+        clearTimeout(timer);
+        if (Array.isArray(rows)) {
+          try { localStorage.setItem("NLF_PUBLIC_CONTRIBUTIONS", JSON.stringify(rows)); } catch (_) {}
+          renderContributions(rows);
+        } else throw new Error("Invalid contribution response");
       })
       .catch(err => {
-        document.getElementById("tableWrap").textContent = "Unable to load contribution data.";
+        clearTimeout(timer);
+        if (!wrap.querySelector("table") && !wrap.querySelector(".contribution-card")) {
+          wrap.className = "table-message";
+          wrap.innerHTML = 'Contribution data loading took longer than expected. <button type="button" style="width:auto;margin-left:8px;padding:7px 12px" onclick="loadContributions(true)">Retry</button>';
+        }
         console.error(err);
       });
   }
